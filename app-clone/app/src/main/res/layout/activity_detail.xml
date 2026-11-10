@@ -90,23 +90,29 @@
                             android:id="@+id/lastdate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:textColor="@color/txtlight"
                             android:textSize="11sp" />
+
+                        <!-- Reminder: opens the clock app's "set alarm" screen (govt jobs only). -->
+                        <ImageView
+                            android:id="@+id/alarm"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:contentDescription="@string/set_reminder"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:src="@drawable/gs_reminder"
+                            android:visibility="gone" />
                     </LinearLayout>
 
-                    <androidx.core.widget.NestedScrollView
+                    <!-- HTML body, rendered like the original with loadDataWithBaseURL. -->
+                    <WebView
+                        android:id="@+id/content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            android:id="@+id/content"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lineSpacingExtra="4dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </androidx.core.widget.NestedScrollView>
+                        android:layout_marginTop="10dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

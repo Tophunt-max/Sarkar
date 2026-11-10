@@ -28,7 +28,7 @@ node server.js                     # http://localhost:8000
 # 2. Android app
 cd app-clone
 echo "sdk.dir=/path/to/Android/Sdk" > local.properties
-./gradlew assembleDebug -PapiBase=http://10.0.2.2:8000/api/
+./gradlew assembleDebug -PapiBase=http://10.0.2.2:8000/
 #   APK -> app/build/outputs/apk/debug/app-debug.apk
 ```
 

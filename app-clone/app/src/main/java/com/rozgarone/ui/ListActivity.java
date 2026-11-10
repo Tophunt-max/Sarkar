@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.rozgarone.R;
+import com.rozgarone.ads.Ads;
 import com.rozgarone.models.Post;
 import com.rozgarone.net.Repo;
 import com.rozgarone.ui.adapter.PostAdapter;
@@ -46,6 +47,7 @@ public class ListActivity extends AppCompatActivity implements PostAdapter.Liste
     private String group;
     private String labelId;
     private boolean showingExpired;
+    private Ads.Interstitial interstitial;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +91,9 @@ public class ListActivity extends AppCompatActivity implements PostAdapter.Liste
 
         refresh.setColorSchemeResources(R.color.primary);
         refresh.setOnRefreshListener(this::load);
+
+        Ads.banner(this, findViewById(R.id.adMobView));
+        interstitial = new Ads.Interstitial(this);
 
         load();
     }
@@ -150,10 +155,16 @@ public class ListActivity extends AppCompatActivity implements PostAdapter.Liste
     @Override
     public void onPostClick(Post post) {
         Intent i = new Intent(this, DetailActivity.class);
+        i.putExtra(DetailActivity.EXTRA_FEED, feed);
         i.putExtra(DetailActivity.EXTRA_TITLE, post.jobTitle);
         i.putExtra(DetailActivity.EXTRA_CONTENT, post.jobContent);
-        i.putExtra(DetailActivity.EXTRA_DATE, post.formattedDate);
+        // The original detail screens show postPublishDate (the list shows formattedDate).
+        i.putExtra(DetailActivity.EXTRA_DATE,
+                post.postPublishDate.isEmpty() ? post.formattedDate : post.postPublishDate);
         i.putExtra(DetailActivity.EXTRA_EXPIRY, post.expiredDate);
         startActivity(i);
+        // The original shows an interstitial only when opening a post from the main
+        // govt-job list (AllGovjob.i → O()), not from filtered or other feeds.
+        if (Repo.GOVT_JOB.equals(feed) && group == null) interstitial.show(this);
     }
 }

@@ -4,6 +4,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- The reminder button opens the clock app's set-alarm screen (Android 11+ visibility). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SET_ALARM" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 
     <application
         android:name=".App"
@@ -32,8 +45,22 @@
 
         <activity android:name=".ui.StartActivity" android:screenOrientation="portrait" android:exported="false" />
         <activity android:name=".ui.MainActivity" android:screenOrientation="portrait" android:exported="false" />
-        <activity android:name=".ui.ListActivity" android:screenOrientation="portrait" android:exported="false" />
+        <activity
+            android:name=".ui.ListActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.FilterActivity" android:screenOrientation="portrait" android:exported="false" />
         <activity android:name=".ui.DetailActivity" android:screenOrientation="portrait" android:exported="false" />
         <activity android:name=".ui.NotificationActivity" android:screenOrientation="portrait" android:exported="false" />
+
+        <!-- FCM data messages (only active when the build includes google-services.json). -->
+        <service
+            android:name=".push.MessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

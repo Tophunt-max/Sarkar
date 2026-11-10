@@ -1,7 +1,7 @@
 <?php
 /** GET api/getnotification.php → { status, message, notification: [{maintitle, secondtitle, publishdate}] } */
 declare(strict_types=1);
-require_once __DIR__ . '/config.php';
+require_once dirname(__DIR__) . '/config.php';
 
 cors();
 

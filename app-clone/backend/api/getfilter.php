@@ -1,23 +1,23 @@
 <?php
 /**
- * GET api/getfilter.php?title=Category|Profession|Qualification|Location
+ * POST|GET api/getfilter.php  filter=Category|Profession|Qualification|Location
  * → { status, message, filter: [{ category_name, id }] }
- * The Android Category screen passes the group title as an intent extra and
- * requests exactly that group; without a title every group is returned.
+ * The Android Category screen sends its group title as the "filter" form field
+ * (REA: Category.T() puts map("filter", title)). Without a valid group every value is returned.
  */
 declare(strict_types=1);
-require_once __DIR__ . '/config.php';
+require_once dirname(__DIR__) . '/config.php';
 
 cors();
 
 try {
-    $title = p_str('title', p_str('group'));
+    $group = p_str('filter', p_str('title', p_str('group')));
 
-    if ($title !== '' && in_array($title, ROZGARONE_GROUPS, true)) {
+    if ($group !== '' && in_array($group, ROZGARONE_GROUPS, true)) {
         $stmt = db()->prepare(
             'SELECT id, category_name FROM filters WHERE group_name = ? ORDER BY category_name ASC'
         );
-        $stmt->execute([$title]);
+        $stmt->execute([$group]);
     } else {
         $stmt = db()->query('SELECT id, category_name FROM filters ORDER BY group_name ASC, category_name ASC');
     }
