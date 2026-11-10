@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+<!-- Ported from the original app's res/layout/option_item.xml (decoded with Apktool). -->
+<RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
+            android:id="@+id/categorylist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:foreground="?attr/selectableItemBackground"
+            android:layout_margin="@dimen/_10sdp"
+            android:foreground="?selectableItemBackground"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_2sdp">
             <RelativeLayout
+                android:id="@+id/nextbtn"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
-
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_10sdp">
                 <TextView
-                    android:id="@+id/heading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/arrow"
+                    android:textSize="15.0sp"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
+                    android:id="@+id/heading"
+                    android:layout_width="@dimen/_280sdp"
+                    android:layout_height="wrap_content"
+                    android:text="Agriculture"
+                    android:fontFamily="@font/poppins_medium" />
                 <ImageView
-                    android:id="@+id/arrow"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginTop="5.0dp"
+                    android:layout_marginBottom="5.0dp"
                     android:src="@drawable/gs_next"
+                    android:layout_toLeftOf="@id/heading"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="5.0dp"
+                    android:layout_marginEnd="5.0dp"
                     app:tint="@color/black" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

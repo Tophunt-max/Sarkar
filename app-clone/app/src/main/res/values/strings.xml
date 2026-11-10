@@ -44,6 +44,8 @@
     <string name="filter_list_title">%s List</string>
     <string name="filter_jobs_title">%s Job List</string>
 
+    <string name="title_job_details">Job Details</string>
+    <string name="title_details">Details</string>
     <string name="set_reminder">Set reminder</string>
     <string name="no_clock_app">No clock app found to set a reminder</string>
     <string name="notification_channel">Job alerts</string>

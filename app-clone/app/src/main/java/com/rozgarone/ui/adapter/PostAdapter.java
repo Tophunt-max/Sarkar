@@ -48,7 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.VH> {
         Post p = items.get(position);
         h.heading.setText(p.jobTitle);
         h.time.setText(p.formattedDate);
-        h.description.setText(Util.plain(p.jobContent));
+        h.description.setText(Util.fromHtml(p.jobContent)); // original: ConstClass.b(html)
         h.itemView.setOnClickListener(v -> listener.onPostClick(p));
     }
 
