@@ -1,128 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary">
-
-    <!-- Native ad slot (same id as the original start screen). -->
-    <FrameLayout
-        android:id="@+id/mobadslayout"
+<!-- Ported from the original app's res/layout/activity_start_screen.xml (decoded with Apktool). -->
+<RelativeLayout android:background="@color/primary" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/ads"
+        android:background="#dfdfdf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textLL"
-        android:layout_alignParentTop="true"
-        android:layout_margin="15dp" />
-
+        android:minHeight="250.0dp">
+        <FrameLayout
+            android:orientation="vertical"
+            android:id="@+id/mobadslayout"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
     <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
         android:id="@+id/textLL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_above="@id/container"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
+        android:layout_centerHorizontal="true">
         <TextView
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppins_medium" />
     </LinearLayout>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
         android:layout_above="@id/shareapp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="1dp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_1sdp"
         app:cardUseCompatPadding="true">
-
         <RelativeLayout
             android:id="@+id/nextpage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="?attr/selectableItemBackground">
-
+            android:foreground="?selectableItemBackground">
             <TextView
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Find jobs start here"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/find_jobs_here"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
+                android:fontFamily="@font/poppins_medium" />
             <ImageView
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/_17sdp"
+                android:layout_height="@dimen/_17sdp"
                 android:src="@drawable/gs_next"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_alignParentEnd="true"
                 app:tint="@color/black" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/shareapp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
         android:layout_above="@id/privacy"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         app:cardBackgroundColor="@color/lightprimary"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="1dp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_1sdp"
         app:cardUseCompatPadding="true">
-
         <RelativeLayout
             android:id="@+id/sharewithfriend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="?attr/selectableItemBackground">
-
+            android:foreground="?selectableItemBackground">
             <TextView
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Share App"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/share_app"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
+                android:fontFamily="@font/poppins_medium" />
             <ImageView
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
+                android:layout_width="@dimen/_17sdp"
+                android:layout_height="@dimen/_17sdp"
                 android:src="@drawable/gs_share"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_alignParentEnd="true"
                 app:tint="@color/white" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
     <TextView
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
         android:id="@+id/privacy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:foreground="?selectableItemBackground"
+        android:text="Privacy policy"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:text="@string/privacy_policy"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:fontFamily="@font/poppins_extralight" />
 </RelativeLayout>

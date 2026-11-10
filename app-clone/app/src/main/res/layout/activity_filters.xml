@@ -1,125 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/back">
-
+<!-- Ported from the original app's res/layout/activity_category.xml (decoded with Apktool). -->
+<RelativeLayout android:background="@color/back" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:id="@+id/actionbar"
+        android:background="@color/primary"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/primary">
-
+        android:layout_height="?actionBarSize">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/gs_ashoka_chakra" />
-
+            android:src="@drawable/gs_ashoka_chakra"
+            android:layout_marginStart="@dimen/_minus6sdp" />
         <ImageView
             android:id="@+id/backbutton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/gs_back"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:src="@drawable/gs_back" />
-
+            android:layout_marginStart="@dimen/_5sdp" />
         <TextView
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/white"
             android:id="@+id/titlebar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Category List"
+            android:capitalize="sentences"
             android:layout_centerVertical="true"
-            android:layout_marginStart="12dp"
-            android:layout_toEndOf="@id/backbutton"
-            android:text="@string/home_category"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="@dimen/_5sdp"
+            android:layout_toEndOf="@id/backbutton" />
     </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/search"
+        android:background="@drawable/gs_border"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="?actionBarSize"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_below="@id/actionbar"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/gs_border">
-
-        <EditText
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp">
+        <androidx.appcompat.widget.SearchView
+            android:textSize="@dimen/_15sdp"
             android:id="@+id/searchview"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="52dp"
-            android:background="@null"
-            android:hint="@string/search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/txtlight"
-            android:textSize="15sp" />
-
+            android:layout_marginStart="@dimen/_2sdp"
+            app:defaultQueryHint="Search Here..."
+            app:iconifiedByDefault="false" />
         <LinearLayout
-            android:id="@+id/searchBtn"
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
+            android:gravity="center"
             android:background="@drawable/gs_square"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center">
-
+            android:visibility="gone"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="match_parent"
+            android:foreground="?selectableItemBackground"
+            android:layout_alignParentEnd="true">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="match_parent"
                 android:src="@drawable/gs_search"
                 app:tint="@color/white" />
         </LinearLayout>
     </RelativeLayout>
-
     <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_gravity="center"
+        android:orientation="vertical"
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search"
-        app:shimmer_duration="1000">
-
+        app:duration="1000">
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content">
+            <include layout="@layout/item_placeholder_list" />
             <include layout="@layout/item_placeholder_list" />
             <include layout="@layout/item_placeholder_list" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyc_ipo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
     <TextView
+        android:textSize="20.0sp"
+        android:textColor="@color/black"
         android:id="@+id/txt_noData"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="No data Found"
         android:layout_centerInParent="true"
-        android:text="@string/no_data"
-        android:textColor="@color/txtlight"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:fontFamily="@font/poppins_medium" />
 </RelativeLayout>

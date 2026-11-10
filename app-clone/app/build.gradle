@@ -54,6 +54,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    // Screen-size scaled dimens (@dimen/_15sdp …), the same library the original uses.
+    implementation 'com.intuit.sdp:sdp-android:1.1.1'
     implementation 'androidx.lifecycle:lifecycle-process:2.8.4'
     implementation 'com.google.android.gms:play-services-ads:23.2.0'
     implementation 'com.google.firebase:firebase-messaging:24.0.1'

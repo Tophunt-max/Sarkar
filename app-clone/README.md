@@ -37,7 +37,7 @@ The original flow, screen by screen:
    govt-jobs feed; pull to refresh; loading shimmer; empty state; bottom banner ad.
 5. **Detail** — HTML body in a WebView (first `<h1>` hidden), publish date, bottom banner.
    Govt jobs also show "Last Date" and a reminder button that opens the clock app's
-   set-alarm screen. A share button is added on top of the original.
+   set-alarm screen. A share icon in the action bar is added on top of the original.
 6. **Filter values** — "&lt;group&gt; List" with search; tapping a value opens
    "&lt;value&gt; Job List" (the govt jobs tagged with that label).
 7. **Notifications** — announcement list behind the bell.

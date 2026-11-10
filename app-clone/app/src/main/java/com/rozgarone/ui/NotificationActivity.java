@@ -102,12 +102,13 @@ public class NotificationActivity extends AppCompatActivity {
         @Override
         public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.job_list_item, parent, false);
+                    .inflate(R.layout.notification_item, parent, false);
             return new VH(v);
         }
 
         @Override
         public void onBindViewHolder(@NonNull VH h, int position) {
+            // Same row as the original (c.d.a.d.e): title, description, date at the bottom right.
             Notice n = items.get(position);
             h.title.setText(n.maintitle);
             h.meta.setText(n.publishdate);
@@ -126,7 +127,7 @@ public class NotificationActivity extends AppCompatActivity {
 
             VH(@NonNull View v) {
                 super(v);
-                title = v.findViewById(R.id.heading);
+                title = v.findViewById(R.id.title);
                 meta = v.findViewById(R.id.time);
                 body = v.findViewById(R.id.descrption);
             }

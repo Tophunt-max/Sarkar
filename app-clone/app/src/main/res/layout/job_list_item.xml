@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <androidx.cardview.widget.CardView
+<!-- Ported from the original app's res/layout/job_list_item.xml (decoded with Apktool). -->
+<RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:foreground="?attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp">
-
-        <RelativeLayout
-            android:id="@+id/nextbtn"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/qualification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/heading"
+            android:layout_margin="@dimen/_5sdp"
+            android:foreground="?selectableItemBackground"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_2sdp">
+            <RelativeLayout
+                android:id="@+id/nextbtn"
+                android:padding="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/arrow"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:text="UPSC ESE (Preliminary) Exam 2024 - 247 Vacancies" />
-
-            <ImageView
-                android:id="@+id/arrow"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/gs_next"
-                app:tint="@color/black" />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/heading"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/txtlight"
-                android:textSize="10sp"
-                tools:text="08 Nov 2026" />
-
-            <TextView
-                android:id="@+id/descrption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/time"
-                android:layout_marginTop="3dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textColor="@color/txtlight"
-                android:textSize="12sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_height="match_parent">
+                <TextView
+                    android:textSize="15.0sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="UPSC ESE (Preliminary) Exam 2022-247 Vacancies"
+                    android:layout_toLeftOf="@id/arrow"
+                    android:fontFamily="@font/poppins_medium" />
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginTop="5.0dp"
+                    android:layout_marginBottom="5.0dp"
+                    android:src="@drawable/gs_next"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="5.0dp"
+                    android:layout_marginEnd="5.0dp"
+                    app:tint="@color/black" />
+                <TextView
+                    android:textSize="10.0sp"
+                    android:textColor="@color/txtlight"
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 hours ago"
+                    android:layout_below="@id/heading"
+                    android:fontFamily="@font/poppins_extralight" />
+                <TextView
+                    android:textSize="13.0sp"
+                    android:textColor="@color/black"
+                    android:ellipsize="end"
+                    android:id="@+id/descrption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-1.0dp"
+                    android:maxLines="3"
+                    android:layout_below="@id/time" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 </RelativeLayout>

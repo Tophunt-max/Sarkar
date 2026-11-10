@@ -45,10 +45,13 @@ public class DetailActivity extends AppCompatActivity {
         String expiry = nz(getIntent().getStringExtra(EXTRA_EXPIRY));
         boolean isJob = feed == null || Repo.GOVT_JOB.equals(feed);
 
+        // Original titles: "Job Details" for govt jobs, "Details" for the other feeds.
+        ((TextView) findViewById(R.id.titlebar)).setText(isJob ? R.string.title_job_details : R.string.title_details);
         ((TextView) findViewById(R.id.heading)).setText(title);
         ((TextView) findViewById(R.id.time)).setText(date);
+        findViewById(R.id.shimmer_view_container).setVisibility(View.GONE);
 
-        WebView web = findViewById(R.id.content);
+        WebView web = findViewById(R.id.descrption);
         web.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {

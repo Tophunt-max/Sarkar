@@ -1,460 +1,473 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/back">
-
-    <!-- Top action bar -->
+<!-- Ported from the original app's res/layout/activity_main.xml (decoded with Apktool). -->
+<RelativeLayout android:background="@color/back" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:id="@+id/actionbar"
+        android:background="@color/primary"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/primary">
-
+        android:layout_height="?actionBarSize">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/gs_ashoka_chakra" />
-
+            android:src="@drawable/gs_ashoka_chakra"
+            android:layout_marginStart="@dimen/_minus6sdp" />
         <TextView
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:paddingStart="10dp"
             android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_2sdp" />
         <ImageView
             android:id="@+id/notification"
-            android:layout_width="22dp"
+            android:layout_width="@dimen/_22sdp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="12dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:src="@drawable/gs_notification" />
+            android:foreground="?selectableItemBackground"
+            android:src="@drawable/gs_notification"
+            android:layout_marginEnd="12.0dp"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/actionbar"
-        android:fillViewport="true">
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/actionbar">
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Row 1 -->
-            <LinearLayout
+            android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:foreground="?selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardElevation="@dimen/_2sdp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize">
+                    <EditText
+                        android:textSize="@dimen/_15sdp"
+                        android:textColor="@color/txtlight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Search job here..."
+                        android:layout_centerVertical="true"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_2sdp" />
+                    <LinearLayout
+                        android:gravity="center"
+                        android:background="@drawable/gs_square"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="match_parent"
+                        android:foreground="?selectableItemBackground"
+                        android:layout_alignParentEnd="true">
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/gs_search"
+                            app:tint="@color/white" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
                 android:orientation="horizontal"
-                android:weightSum="2">
-
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:weightSum="2.0">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/findgovjob"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_width="0.0dp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
+                    android:layout_weight="1.0"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/one">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_gov_job"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_find_gov_job"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Find All Gov. Jobs"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/currentaffairs"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_width="0.0dp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
+                    android:layout_weight="1.0"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/two">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_current_affairs"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_current_affairs"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Current Affairs"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
-
-            <!-- Row 2 -->
             <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:weightSum="2.0">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/dailynews"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_width="0.0dp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
+                    android:layout_weight="1.0"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/three">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_news"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_daily_news"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Daily News Alerts"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/examresult"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_width="0.0dp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
+                    android:layout_weight="1.0"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/four">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_grade"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_exam_results"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Exam Results"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
-
-            <!-- Ad placeholder -->
             <RelativeLayout
                 android:id="@+id/ads"
+                android:background="#dfdfdf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#FFDFDFDF"
-                android:minHeight="120dp">
-
+                android:layout_margin="10.0dp"
+                android:minHeight="250.0dp">
                 <FrameLayout
+                    android:orientation="vertical"
                     android:id="@+id/mobadslayout"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@color/white" />
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true" />
             </RelativeLayout>
-
-            <!-- Filter rows -->
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:orientation="vertical">
-
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/category"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="5dp"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="horizontal">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/five">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_menu"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
+                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_category"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Find Job Category wise"
+                                android:fontFamily="@font/poppins_medium"
+                                android:layout_marginStart="@dimen/_15sdp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profession"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="5dp"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="horizontal">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/six">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_profession"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
+                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_profession"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Find Job Profession wise"
+                                android:fontFamily="@font/poppins_medium"
+                                android:layout_marginStart="@dimen/_15sdp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/qualification"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="5dp"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="horizontal">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/seven">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_qualification"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
+                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_qualification"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Find Job Qualification wise"
+                                android:fontFamily="@font/poppins_medium"
+                                android:layout_marginStart="@dimen/_15sdp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/location"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="5dp"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:foreground="?selectableItemBackground"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="2dp">
-
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_2sdp">
                     <LinearLayout
+                        android:layout_gravity="start|center"
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:orientation="horizontal">
-
+                        android:layout_marginStart="@dimen/_15sdp">
                         <LinearLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             android:background="@drawable/gs_rounded"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
                             android:backgroundTint="@color/eight">
-
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
                                 android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/gs_location"
                                 app:tint="@color/white" />
                         </LinearLayout>
-
-                        <TextView
+                        <LinearLayout
+                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/home_location"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="12.0sp"
+                                android:textColor="@color/black"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="Find Job Location wise"
+                                android:fontFamily="@font/poppins_medium"
+                                android:layout_marginStart="@dimen/_15sdp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

@@ -2,15 +2,13 @@ package com.rozgarone.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -60,24 +58,21 @@ public class FilterActivity extends AppCompatActivity implements FilterAdapter.L
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
 
-        EditText search = findViewById(R.id.searchview);
-        search.addTextChangedListener(new TextWatcher() {
+        // SearchView with live filtering, like the original Category screen.
+        SearchView search = findViewById(R.id.searchview);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int a, int b, int c) {
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int a, int b, int c) {
-                adapter.filter(s == null ? "" : s.toString());
+            public boolean onQueryTextChange(String text) {
+                adapter.filter(text == null ? "" : text);
                 noData.setVisibility(adapter.isEmpty() ? View.VISIBLE : View.GONE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+                return false;
             }
         });
-        findViewById(R.id.searchBtn).setOnClickListener(v ->
-                adapter.filter(search.getText().toString()));
 
         refresh.setColorSchemeResources(R.color.primary);
         refresh.setOnRefreshListener(this::load);

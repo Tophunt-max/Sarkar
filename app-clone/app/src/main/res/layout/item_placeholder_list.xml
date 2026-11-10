@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
-
+<!-- Ported from the original app's res/layout/item_placeholder_list.xml (decoded with Apktool). -->
+<RelativeLayout android:padding="@dimen/_16sdp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
     <View
-        android:id="@+id/ph_name"
-        android:layout_width="150dp"
-        android:layout_height="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/placeholder_bg" />
-
+        android:id="@+id/name"
+        android:background="@color/placeholder_bg"
+        android:layout_width="150.0dp"
+        android:layout_height="10.0dp"
+        android:layout_marginBottom="10.0dp" />
     <View
-        android:layout_width="100dp"
-        android:layout_height="10dp"
-        android:layout_below="@id/ph_name"
-        android:background="@color/placeholder_bg" />
-
+        android:background="@color/placeholder_bg"
+        android:layout_width="100.0dp"
+        android:layout_height="@dimen/placeholder_text_height"
+        android:layout_below="@id/name" />
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
-
+        android:layout_marginTop="20.0dp"
+        android:layout_marginBottom="40.0dp">
         <View
+            android:background="@color/placeholder_bg"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginEnd="100dp"
-            android:background="@color/placeholder_bg" />
-
+            android:layout_height="@dimen/placeholder_text_height"
+            android:layout_marginRight="100.0dp" />
         <View
+            android:background="@color/placeholder_bg"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/placeholder_bg" />
-
+            android:layout_height="@dimen/placeholder_text_height"
+            android:layout_marginTop="10.0dp"
+            android:layout_marginRight="50.0dp" />
         <View
+            android:background="@color/placeholder_bg"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="160dp"
-            android:background="@color/placeholder_bg" />
+            android:layout_height="@dimen/placeholder_text_height"
+            android:layout_marginTop="10.0dp"
+            android:layout_marginRight="160.0dp" />
     </LinearLayout>
 </RelativeLayout>
