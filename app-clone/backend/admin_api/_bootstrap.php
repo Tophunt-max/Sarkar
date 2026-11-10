@@ -13,7 +13,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
         'samesite' => 'Lax',
         'path'     => '/',
     ]);
-    session_name('sarkar_admin');
+    session_name('rozgarone_admin');
     session_start();
 }
 

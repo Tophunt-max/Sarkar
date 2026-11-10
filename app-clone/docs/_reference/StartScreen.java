@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates;
+package com.rozgarone.app;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -25,7 +25,7 @@ import c.c.b.b.l.i;
 import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAdView;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.gsbussiness.sarkariexamupdates.StartScreen;
+import com.rozgarone.app.StartScreen;
 
 /* loaded from: classes.dex */
 public class StartScreen extends b.b.b.c {

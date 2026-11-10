@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.models;
+package com.rozgarone.app.models;
 
 /** A push-style announcement shown on the Notifications screen. */
 public class Notice {

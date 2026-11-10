@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.models;
+package com.rozgarone.app.models;
 
 /** One selectable value of a filter group (Category / Profession / Qualification / Location). */
 public class FilterItem {

@@ -22,7 +22,7 @@ try {
         $sql  = 'SELECT p.* FROM posts p WHERE p.is_deleted = 0 AND p.feed = "govtjob"';
         $args = [];
         // Constrain by the selected filter label when it resolves to a known group.
-        if ($group !== '' && in_array($group, SARKAR_GROUPS, true)) {
+        if ($group !== '' && in_array($group, ROZGARONE_GROUPS, true)) {
             $sql .= ' AND EXISTS (SELECT 1 FROM filters f WHERE f.id = ? AND f.group_name = ?)';
             $args[] = (int) $labelId;
             $args[] = $group;
@@ -33,7 +33,7 @@ try {
         ok('govtjob', array_map('shape_post', $stmt->fetchAll()));
     }
 
-    if ($feed === null || !in_array($feed, SARKAR_FEEDS, true)) {
+    if ($feed === null || !in_array($feed, ROZGARONE_FEEDS, true)) {
         fail('unknown feed');
     }
 

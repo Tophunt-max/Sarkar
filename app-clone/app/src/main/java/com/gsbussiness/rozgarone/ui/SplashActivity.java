@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.ui;
+package com.rozgarone.app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import android.os.Looper;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gsbussiness.sarkariexamupdates.App;
-import com.gsbussiness.sarkariexamupdates.R;
-import com.gsbussiness.sarkariexamupdates.net.Repo;
+import com.rozgarone.app.App;
+import com.rozgarone.app.R;
+import com.rozgarone.app.net.Repo;
 
 /** Branded splash: prefetches ad settings, then routes to intro or home. */
 public class SplashActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         new Repo(this).settings(new Repo.SettingsCallback() {
             @Override
-            public void onSuccess(com.gsbussiness.sarkariexamupdates.net.AppSettings settings) {
+            public void onSuccess(com.rozgarone.app.net.AppSettings settings) {
                 App.get().setSettings(settings);
             }
 

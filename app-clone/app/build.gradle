@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.gsbussiness.sarkariexamupdates'
+    namespace 'com.rozgarone.app'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.gsbussiness.sarkariexamupdates"
+        applicationId "com.rozgarone.app"
         minSdk 24
         targetSdk 34
         versionCode 1

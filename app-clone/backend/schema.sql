@@ -1,9 +1,9 @@
--- Sarkar Clone — MySQL schema
+-- RozgarOne — MySQL schema
 -- Import: mysql -u root -p < schema.sql
 
-CREATE DATABASE IF NOT EXISTS sarkar_clone
+CREATE DATABASE IF NOT EXISTS rozgarone
   DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE sarkar_clone;
+USE rozgarone;
 
 CREATE TABLE IF NOT EXISTS admin_users (
   id            INT AUTO_INCREMENT PRIMARY KEY,

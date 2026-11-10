@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Dev/demo server: runs the identical Sarkar Clone API contract without PHP/MySQL.
+ * Dev/demo server: runs the identical RozgarOne API contract without PHP/MySQL.
  * Serves the public api/, the admin API and the admin panel as static files.
  *
  *   node server.js            → http://localhost:8000
@@ -141,7 +141,7 @@ function parseCookies(req) {
 }
 
 function session(req) {
-  const sid = parseCookies(req).sarkar_admin;
+  const sid = parseCookies(req).rozgarone_admin;
   return sid && db.sessions[sid] ? { sid, ...db.sessions[sid] } : null;
 }
 
@@ -253,12 +253,12 @@ async function handleAdmin(url, req, res) {
       const sid = crypto.randomBytes(16).toString('hex');
       db.sessions[sid] = { user: { username: db.admin.username, name: db.admin.name }, csrf: crypto.randomBytes(16).toString('hex') };
       save();
-      res.setHeader('Set-Cookie', `sarkar_admin=${sid}; Path=/; HttpOnly; SameSite=Lax`);
+      res.setHeader('Set-Cookie', `rozgarone_admin=${sid}; Path=/; HttpOnly; SameSite=Lax`);
       return adminOk(res, { message: 'Logged in', user: db.sessions[sid].user, csrf: db.sessions[sid].csrf });
     }
     if (action === 'logout') {
       if (sess) { delete db.sessions[sess.sid]; save(); }
-      res.setHeader('Set-Cookie', 'sarkar_admin=; Path=/; Max-Age=0');
+      res.setHeader('Set-Cookie', 'rozgarone_admin=; Path=/; Max-Age=0');
       return adminOk(res, { message: 'Logged out' });
     }
     if (!sess) return adminErr(res, 'Unauthorized', 401);
@@ -425,7 +425,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Sarkar Clone dev server → http://localhost:${PORT}`);
+  console.log(`RozgarOne dev server → http://localhost:${PORT}`);
   console.log(`  Public API  : http://localhost:${PORT}/api/getgovtjob.php`);
   console.log(`  Admin panel : http://localhost:${PORT}/admin/   (admin / admin123)`);
 });

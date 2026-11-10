@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.ui.adapter;
+package com.rozgarone.app.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gsbussiness.sarkariexamupdates.R;
-import com.gsbussiness.sarkariexamupdates.models.Post;
-import com.gsbussiness.sarkariexamupdates.util.Util;
+import com.rozgarone.app.R;
+import com.rozgarone.app.models.Post;
+import com.rozgarone.app.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

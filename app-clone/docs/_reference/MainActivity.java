@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates;
+package com.rozgarone.app;
 
 import android.content.Intent;
 import android.os.Bundle;

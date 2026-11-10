@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.AppInit;
+package com.rozgarone.app.AppInit;
 
 import android.app.Application;
 import android.content.Context;

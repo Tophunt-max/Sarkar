@@ -13,7 +13,7 @@ cors();
 try {
     $title = p_str('title', p_str('group'));
 
-    if ($title !== '' && in_array($title, SARKAR_GROUPS, true)) {
+    if ($title !== '' && in_array($title, ROZGARONE_GROUPS, true)) {
         $stmt = db()->prepare(
             'SELECT id, category_name FROM filters WHERE group_name = ? ORDER BY category_name ASC'
         );

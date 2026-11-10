@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.ui;
+package com.rozgarone.app.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,8 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gsbussiness.sarkariexamupdates.App;
-import com.gsbussiness.sarkariexamupdates.R;
+import com.rozgarone.app.App;
+import com.rozgarone.app.R;
 
 /** First-run intro: "Find jobs start here", share app, privacy policy. */
 public class StartActivity extends AppCompatActivity {

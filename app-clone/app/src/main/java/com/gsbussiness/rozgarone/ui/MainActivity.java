@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.ui;
+package com.rozgarone.app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gsbussiness.sarkariexamupdates.R;
-import com.gsbussiness.sarkariexamupdates.net.Repo;
+import com.rozgarone.app.R;
+import com.rozgarone.app.net.Repo;
 
 /** Home dashboard: four feed tiles, four filter entries and the notification bell. */
 public class MainActivity extends AppCompatActivity {

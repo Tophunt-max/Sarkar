@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.net;
+package com.rozgarone.app.net;
 
 /** AdMob unit ids and other server-driven settings. */
 public class AppSettings {

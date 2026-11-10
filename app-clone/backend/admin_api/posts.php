@@ -15,7 +15,7 @@ function post_payload(): array
     $feed  = p_str('feed');
     $title = p_str('jobTitle', p_str('job_title'));
     $body  = p_str('jobContent', p_str('job_content'));
-    if (!in_array($feed, SARKAR_FEEDS, true)) {
+    if (!in_array($feed, ROZGARONE_FEEDS, true)) {
         admin_error('Invalid feed');
     }
     if ($title === '') {
@@ -70,7 +70,7 @@ try {
 
         $where  = [];
         $args   = [];
-        if (in_array($feed, SARKAR_FEEDS, true)) {
+        if (in_array($feed, ROZGARONE_FEEDS, true)) {
             $where[] = 'feed = ?';
             $args[]  = $feed;
         }

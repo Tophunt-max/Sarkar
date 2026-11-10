@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.models;
+package com.rozgarone.app.models;
 
 import androidx.annotation.NonNull;
 

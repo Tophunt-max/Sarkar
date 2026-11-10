@@ -1,3 +1,3 @@
 # Default ProGuard rules
--keep class com.gsbussiness.sarkariexamupdates.models.** { *; }
+-keep class com.rozgarone.app.models.** { *; }
 -keepattributes Signature

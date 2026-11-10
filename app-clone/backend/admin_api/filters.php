@@ -12,7 +12,7 @@ require_auth();
 try {
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
         $group = p_str('group');
-        if (in_array($group, SARKAR_GROUPS, true)) {
+        if (in_array($group, ROZGARONE_GROUPS, true)) {
             $stmt = db()->prepare('SELECT * FROM filters WHERE group_name = ? ORDER BY category_name ASC');
             $stmt->execute([$group]);
         } else {
@@ -44,7 +44,7 @@ try {
 
     $group = p_str('group_name', p_str('group'));
     $name  = p_str('category_name', p_str('name'));
-    if (!in_array($group, SARKAR_GROUPS, true)) {
+    if (!in_array($group, ROZGARONE_GROUPS, true)) {
         admin_error('Invalid group_name');
     }
     if ($name === '') {

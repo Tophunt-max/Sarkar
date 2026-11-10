@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gov. Job Alerts Portal</string>
+    <string name="app_name">RozgarOne</string>
 
     <!-- Replace with your own AdMob app id. The value below is Google's official test id. -->
     <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>

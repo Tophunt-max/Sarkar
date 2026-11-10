@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.ui;
+package com.rozgarone.app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gsbussiness.sarkariexamupdates.R;
-import com.gsbussiness.sarkariexamupdates.util.Util;
+import com.rozgarone.app.R;
+import com.rozgarone.app.util.Util;
 
 /** Full post detail: title, publish/expiry dates and rendered HTML body. */
 public class DetailActivity extends AppCompatActivity {

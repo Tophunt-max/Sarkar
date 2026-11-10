@@ -1,12 +1,12 @@
 <?php
 /**
- * Sarkar Clone — shared bootstrap: DB connection, JSON helpers, CORS.
- * Override credentials with env vars SARKAR_DB_HOST / _NAME / _USER / _PASS.
+ * RozgarOne — shared bootstrap: DB connection, JSON helpers, CORS.
+ * Override credentials with env vars ROZGARONE_DB_HOST / _NAME / _USER / _PASS.
  */
 declare(strict_types=1);
 
-const SARKAR_FEEDS = ['govtjob', 'currentaffairs', 'resultpost', 'dailynews'];
-const SARKAR_GROUPS = ['Category', 'Profession', 'Qualification', 'Location'];
+const ROZGARONE_FEEDS = ['govtjob', 'currentaffairs', 'resultpost', 'dailynews'];
+const ROZGARONE_GROUPS = ['Category', 'Profession', 'Qualification', 'Location'];
 
 function db(): PDO
 {
@@ -14,10 +14,10 @@ function db(): PDO
     if ($pdo instanceof PDO) {
         return $pdo;
     }
-    $host = getenv('SARKAR_DB_HOST') ?: '127.0.0.1';
-    $name = getenv('SARKAR_DB_NAME') ?: 'sarkar_clone';
-    $user = getenv('SARKAR_DB_USER') ?: 'root';
-    $pass = getenv('SARKAR_DB_PASS') ?: '';
+    $host = getenv('ROZGARONE_DB_HOST') ?: '127.0.0.1';
+    $name = getenv('ROZGARONE_DB_NAME') ?: 'rozgarone';
+    $user = getenv('ROZGARONE_DB_USER') ?: 'root';
+    $pass = getenv('ROZGARONE_DB_PASS') ?: '';
     $dsn  = "mysql:host={$host};dbname={$name};charset=utf8mb4";
     $pdo  = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates;
+package com.rozgarone.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,7 @@ import c.c.b.b.a.o;
 import c.c.b.b.a.r;
 import c.d.a.d.a;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gsbussiness.sarkariexamupdates.SarkariHelper.ConstClass;
+import com.rozgarone.app.SarkariHelper.ConstClass;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class Currentaffairs extends b.b.b.c implements a.e {
             interstitialAd.b(new C0146a(this));
         }
 
-        /* renamed from: com.gsbussiness.sarkariexamupdates.Currentaffairs$a$a, reason: collision with other inner class name */
+        /* renamed from: com.rozgarone.app.Currentaffairs$a$a, reason: collision with other inner class name */
         public class C0146a extends l {
             public C0146a(a this$1) {
             }

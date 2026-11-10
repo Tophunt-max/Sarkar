@@ -1,11 +1,11 @@
-package com.gsbussiness.sarkariexamupdates.SarkariHelper;
+package com.rozgarone.app.SarkariHelper;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import b.b.g.e0;
 import b.i.c.d.h;
-import com.gsbussiness.sarkariexamupdates.R;
+import com.rozgarone.app.R;
 
 /* loaded from: classes.dex */
 public class RobotoTextView extends e0 {

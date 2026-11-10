@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.net;
+package com.rozgarone.app.net;
 
 import android.content.Context;
 
@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.gsbussiness.sarkariexamupdates.App;
-import com.gsbussiness.sarkariexamupdates.models.FilterItem;
-import com.gsbussiness.sarkariexamupdates.models.Notice;
-import com.gsbussiness.sarkariexamupdates.models.Post;
+import com.rozgarone.app.App;
+import com.rozgarone.app.models.FilterItem;
+import com.rozgarone.app.models.Notice;
+import com.rozgarone.app.models.Post;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

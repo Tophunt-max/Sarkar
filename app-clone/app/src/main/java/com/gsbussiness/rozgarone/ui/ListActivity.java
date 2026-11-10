@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.ui;
+package com.rozgarone.app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.gsbussiness.sarkariexamupdates.R;
-import com.gsbussiness.sarkariexamupdates.models.Post;
-import com.gsbussiness.sarkariexamupdates.net.Repo;
-import com.gsbussiness.sarkariexamupdates.ui.adapter.PostAdapter;
-import com.gsbussiness.sarkariexamupdates.util.Util;
+import com.rozgarone.app.R;
+import com.rozgarone.app.models.Post;
+import com.rozgarone.app.net.Repo;
+import com.rozgarone.app.ui.adapter.PostAdapter;
+import com.rozgarone.app.util.Util;
 
 import java.util.List;
 

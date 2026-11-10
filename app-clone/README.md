@@ -1,7 +1,8 @@
-# Gov. Job Alerts Portal — Full Clone (App + Admin Panel + Backend)
+# RozgarOne — Government Job Alerts App + Admin Panel + Backend
 
-A working, editable re-implementation of the **Sarkari Exam Updates** Android app
-(`com.gsbussiness.sarkariexamupdates`, distributed as `sarkariexamadmin1-8-22.apk`),
+**RozgarOne** is a working, editable government-job-alerts app, re-implemented from the
+**Sarkari Exam Updates** Android app (originally `com.gsbussiness.sarkariexamupdates`,
+distributed as `sarkariexamadmin1-8-22.apk`),
 including the admin panel and the REST backend it talks to.
 
 The original APK is a compiled native Android app whose content came from a PHP/MySQL
@@ -86,7 +87,7 @@ Data is stored in `backend/data/db.json` and seeded with demo posts on first run
 ### Option B — PHP + MySQL (production)
 
 ```bash
-mysql -u root -p < backend/schema.sql      # creates db `sarkar_clone`, default admin
+mysql -u root -p < backend/schema.sql      # creates db `rozgarone`, default admin
 # point your web server at backend/ , or:
 php -S localhost:8000 -t backend
 ```
@@ -148,7 +149,7 @@ See [`docs/APK-ANALYSIS.md`](./docs/APK-ANALYSIS.md) for how the original APK wa
 ## 7. Push to GitHub
 
 ```bash
-cd sarkar-clone
+cd app-clone
 git init && git add . && git commit -m "Gov Job Alerts clone: app + admin + backend"
 git branch -M main
 git remote add origin https://github.com/<you>/<repo>.git

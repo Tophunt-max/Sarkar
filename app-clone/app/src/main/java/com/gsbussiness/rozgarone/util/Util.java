@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.util;
+package com.rozgarone.app.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

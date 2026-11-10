@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.AppInit;
+package com.rozgarone.app.AppInit;
 
 import android.content.Intent;
 import android.util.Log;
@@ -6,11 +6,11 @@ import c.c.d.a0.t0;
 import c.d.a.c.a;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
-import com.gsbussiness.sarkariexamupdates.AllGovjob;
-import com.gsbussiness.sarkariexamupdates.Currentaffairs;
-import com.gsbussiness.sarkariexamupdates.Dailynews;
-import com.gsbussiness.sarkariexamupdates.Examresults;
-import com.gsbussiness.sarkariexamupdates.MainActivity;
+import com.rozgarone.app.AllGovjob;
+import com.rozgarone.app.Currentaffairs;
+import com.rozgarone.app.Dailynews;
+import com.rozgarone.app.Examresults;
+import com.rozgarone.app.MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 

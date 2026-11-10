@@ -9,7 +9,7 @@ require_once __DIR__ . '/_bootstrap.php';
 
 $user = require_auth();
 
-const SARKAR_KEYS = ['admob_banner', 'admob_interstitial', 'admob_native', 'admob_appopen'];
+const ROZGARONE_KEYS = ['admob_banner', 'admob_interstitial', 'admob_native', 'admob_appopen'];
 
 try {
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
@@ -19,7 +19,7 @@ try {
             $map[$r['setting_key']] = $r['setting_value'];
         }
         $settings = [];
-        foreach (SARKAR_KEYS as $k) {
+        foreach (ROZGARONE_KEYS as $k) {
             $settings[$k] = $map[$k] ?? '';
         }
         admin_json(['settings' => $settings]);
@@ -34,7 +34,7 @@ try {
             'INSERT INTO app_settings (setting_key, setting_value) VALUES (?, ?)
              ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)'
         );
-        foreach (SARKAR_KEYS as $k) {
+        foreach (ROZGARONE_KEYS as $k) {
             $v = p_str($k);
             if ($v !== '') {
                 $stmt->execute([$k, $v]);

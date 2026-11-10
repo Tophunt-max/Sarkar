@@ -1,5 +1,5 @@
 /**
- * Shared API client + UI helpers for the Sarkar Clone admin panel.
+ * Shared API client + UI helpers for the RozgarOne admin panel.
  *
  * Endpoint contract (see backend/admin_api/*.php):
  *   POST auth.php?action=login   {username,password} -> {status,user,csrf}
@@ -146,14 +146,14 @@
     layout.innerHTML = `
       <aside class="sidebar" id="sidebar">
         <div class="brand">
-          <div class="logo">GJ</div>
-          <div class="name">Gov. Job Alerts<small>Admin Panel</small></div>
+          <div class="logo">R1</div>
+          <div class="name">RozgarOne<small>Admin Panel</small></div>
         </div>
         <nav class="nav">
           <div class="section-label">Manage</div>
           ${links}
         </nav>
-        <div class="side-foot">Sarkar Clone v1.0</div>
+        <div class="side-foot">RozgarOne v1.0</div>
       </aside>
       <div class="main">
         <header class="topbar">
@@ -195,5 +195,5 @@
     return document.getElementById('page');
   }
 
-  window.SarkarAdmin = { api, toast, confirmDialog, escapeHtml, fmtDate, shell, FEED_LABELS, ApiError };
+  window.RozgarAdmin = { api, toast, confirmDialog, escapeHtml, fmtDate, shell, FEED_LABELS, ApiError };
 })();

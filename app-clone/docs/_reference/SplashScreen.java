@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates;
+package com.rozgarone.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import c.c.b.b.a.m;
 import c.c.b.b.a.o;
 import c.c.b.b.a.r;
 import c.d.a.g.d;
-import com.gsbussiness.sarkariexamupdates.SarkariHelper.ConstClass;
+import com.rozgarone.app.SarkariHelper.ConstClass;
 import java.util.Arrays;
 import java.util.HashMap;
 import org.json.JSONArray;
@@ -46,7 +46,7 @@ public class SplashScreen extends c {
             interstitialAd.b(new C0150a(this));
         }
 
-        /* renamed from: com.gsbussiness.sarkariexamupdates.SplashScreen$a$a, reason: collision with other inner class name */
+        /* renamed from: com.rozgarone.app.SplashScreen$a$a, reason: collision with other inner class name */
         public class C0150a extends l {
             public C0150a(a this$1) {
             }

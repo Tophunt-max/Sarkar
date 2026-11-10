@@ -1,4 +1,4 @@
-package com.gsbussiness.sarkariexamupdates.AppInit;
+package com.rozgarone.app.AppInit;
 
 import b.p.f;
 import b.p.g;

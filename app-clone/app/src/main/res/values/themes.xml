@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.SarkariExamUpdates" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.RozgarOne" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary</item>
         <item name="colorAccent">@color/two</item>
@@ -9,7 +9,7 @@
         <item name="android:statusBarColor">@color/primary</item>
     </style>
 
-    <style name="Theme.Fullscreen" parent="Theme.SarkariExamUpdates">
+    <style name="Theme.Fullscreen" parent="Theme.RozgarOne">
         <item name="android:windowBackground">@color/primary</item>
     </style>
 

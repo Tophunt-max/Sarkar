@@ -1,10 +1,10 @@
-package com.gsbussiness.sarkariexamupdates;
+package com.rozgarone.app;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.gsbussiness.sarkariexamupdates.net.Api;
-import com.gsbussiness.sarkariexamupdates.net.AppSettings;
+import com.rozgarone.app.net.Api;
+import com.rozgarone.app.net.AppSettings;
 
 /**
  * Application entry point. Owns the process-wide {@link Api} client and the
