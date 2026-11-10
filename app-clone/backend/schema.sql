@@ -38,6 +38,17 @@ CREATE TABLE IF NOT EXISTS filters (
   KEY idx_group (group_name)
 ) ENGINE=InnoDB;
 
+-- Which filter labels (Category / Profession / Qualification / Location values) a govt-job
+-- post belongs to. getpostbyfilter.php returns the posts linked to the requested label.
+CREATE TABLE IF NOT EXISTS post_labels (
+  post_id   INT NOT NULL,
+  filter_id INT NOT NULL,
+  PRIMARY KEY (post_id, filter_id),
+  KEY idx_filter (filter_id),
+  CONSTRAINT fk_pl_post   FOREIGN KEY (post_id)   REFERENCES posts(id)   ON DELETE CASCADE,
+  CONSTRAINT fk_pl_filter FOREIGN KEY (filter_id) REFERENCES filters(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS notifications (
   id           INT AUTO_INCREMENT PRIMARY KEY,
   main_title   VARCHAR(180) NOT NULL,

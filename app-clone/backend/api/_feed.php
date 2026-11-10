@@ -5,7 +5,7 @@
  *  - $MODE = 'plain' | 'expired' | 'byfilter'
  */
 declare(strict_types=1);
-require_once __DIR__ . '/config.php';
+require_once dirname(__DIR__) . '/config.php';
 
 cors();
 
@@ -14,17 +14,20 @@ try {
     $mode = $MODE ?? 'plain';
 
     if ($mode === 'byfilter') {
-        $labelId = p_str('labelid');
+        // Form fields sent by CategoryContent: labelid = filter[].id, filter = group title.
+        $labelId = p_int('labelid');
         $group   = p_str('filter');
-        if ($labelId === '') {
+        if ($labelId <= 0) {
             fail('labelid is required');
         }
-        $sql  = 'SELECT p.* FROM posts p WHERE p.is_deleted = 0 AND p.feed = "govtjob"';
-        $args = [];
-        // Constrain by the selected filter label when it resolves to a known group.
+        // Active govt-job posts tagged with this label (post_labels links posts to filters).
+        $sql = 'SELECT p.* FROM posts p
+                  JOIN post_labels pl ON pl.post_id = p.id
+                  JOIN filters f      ON f.id = pl.filter_id
+                 WHERE p.is_deleted = 0 AND p.is_expired = 0 AND p.feed = \'govtjob\' AND f.id = ?';
+        $args = [$labelId];
         if ($group !== '' && in_array($group, ROZGARONE_GROUPS, true)) {
-            $sql .= ' AND EXISTS (SELECT 1 FROM filters f WHERE f.id = ? AND f.group_name = ?)';
-            $args[] = (int) $labelId;
+            $sql   .= ' AND f.group_name = ?';
             $args[] = $group;
         }
         $sql .= ' ORDER BY p.publish_date DESC, p.id DESC LIMIT 300';

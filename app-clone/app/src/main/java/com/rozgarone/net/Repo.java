@@ -5,17 +5,20 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.rozgarone.App;
 import com.rozgarone.models.FilterItem;
 import com.rozgarone.models.Notice;
 import com.rozgarone.models.Post;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /** Fetches and parses every backend feed. */
 public class Repo {
@@ -88,7 +91,9 @@ public class Repo {
     }
 
     public void filters(String group, FiltersCallback cb) {
-        get("api/getfilter.php?filter=" + group, root -> {
+        Map<String, String> params = new HashMap<>();
+        params.put("filter", group);
+        post("api/getfilter.php", params, root -> {
             List<FilterItem> out = new ArrayList<>();
             JSONArray arr = root.optJSONArray("filter");
             if (arr != null) {
@@ -103,8 +108,10 @@ public class Repo {
     }
 
     public void postsByFilter(String group, String labelId, PostsCallback cb) {
-        String endpoint = "api/getpostbyfilter.php?filter=" + group + "&labelid=" + labelId;
-        get(endpoint, root -> cb.onSuccess(parsePosts(root, GOVT_JOB)), cb::onError);
+        Map<String, String> params = new HashMap<>();
+        params.put("labelid", labelId);
+        params.put("filter", group);
+        post("api/getpostbyfilter.php", params, root -> cb.onSuccess(parsePosts(root, GOVT_JOB)), cb::onError);
     }
 
     public void notices(NoticesCallback cb) {
@@ -179,9 +186,24 @@ public class Repo {
     }
 
     private void get(String endpoint, Parser ok, Fail fail) {
+        post(endpoint, new HashMap<>(), ok, fail);
+    }
+
+    /**
+     * Same transport as the original app: a form-encoded POST whose body is {@code params},
+     * with the response parsed as JSON afterwards.
+     */
+    private void post(String endpoint, Map<String, String> params, Parser ok, Fail fail) {
         String url = api.url(endpoint);
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
+        StringRequest req = new StringRequest(Request.Method.POST, url,
+                body -> {
+                    JSONObject response;
+                    try {
+                        response = new JSONObject(body == null ? "" : body);
+                    } catch (JSONException e) {
+                        fail.fail("response is null");
+                        return;
+                    }
                     String status = response.optString("status", "true");
                     if ("false".equalsIgnoreCase(status)) {
                         fail.fail(response.optString("message", "Request failed"));
@@ -189,7 +211,12 @@ public class Repo {
                     }
                     ok.parse(response);
                 },
-                error -> fail.fail(messageFor(error)));
+                error -> fail.fail(messageFor(error))) {
+            @Override
+            protected Map<String, String> getParams() {
+                return params;
+            }
+        };
         req.setTag(TAG);
         api.add(req);
     }

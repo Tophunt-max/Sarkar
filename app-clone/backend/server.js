@@ -69,6 +69,14 @@ function seed() {
   };
   Object.entries(fData).forEach(([g, list]) => list.forEach((n) => filters.push({ id: ++fid, group_name: g, category_name: n })));
 
+  // Tag demo govt-job posts with labels so every "Find Job ... wise" screen has data.
+  const idOf = (name) => filters.find((f) => f.category_name === name).id;
+  const rotating = ['Engineering', 'Railway', 'Banking & Insurance'];
+  posts.filter((p) => p.feed === 'govtjob').forEach((p, n) => {
+    p.labels = [idOf('Graduate'), idOf('All India'), idOf(rotating[n % rotating.length])];
+  });
+  posts.forEach((p) => { if (!p.labels) p.labels = []; });
+
   return {
     posts,
     filters,
@@ -176,16 +184,18 @@ function serveStatic(res, file) {
 // ---------------------------------------------------------------- routes
 async function handlePublic(url, req, res) {
   const ep = url.pathname.replace(/^\/api\//, '');
-  const q = Object.fromEntries(url.searchParams);
+  // The app sends every call as a form-encoded POST (like the original); GET query works too.
+  const body = req.method === 'POST' ? await readBody(req) : {};
+  const q = { ...Object.fromEntries(url.searchParams), ...body };
 
   switch (ep) {
     case 'appsettings.php':
       return ok(res, 'appsettings', [{ ...db.settings }]);
 
     case 'getfilter.php': {
-      const title = q.title || q.group || '';
+      const group = q.filter || q.title || q.group || '';
       let list = db.filters;
-      if (GROUPS.includes(title)) list = list.filter((f) => f.group_name === title);
+      if (GROUPS.includes(group)) list = list.filter((f) => f.group_name === group);
       return ok(res, 'filter', list.map((f) => ({ category_name: f.category_name, id: String(f.id) })));
     }
 
@@ -195,12 +205,15 @@ async function handlePublic(url, req, res) {
         .map((n) => ({ maintitle: n.maintitle, secondtitle: n.secondtitle, publishdate: n.publishdate })));
 
     case 'getpostbyfilter.php': {
-      const body = req.method === 'POST' ? await readBody(req) : {};
-      const p = { ...q, ...body };
-      let list = db.posts.filter((x) => !x.isDeleted && x.feed === 'govtjob');
-      const lbl = db.filters.find((f) => String(f.id) === String(p.labelid));
-      if (!lbl && !p.labelid) return fail(res, 'labelid is required');
-      if (lbl && p.filter && lbl.group_name !== p.filter) list = [];
+      // labelid = filter[].id, filter = group title (CategoryContent's form fields).
+      const labelId = Number(q.labelid);
+      if (!labelId) return fail(res, 'labelid is required');
+      const lbl = db.filters.find((f) => f.id === labelId);
+      if (!lbl || (q.filter && GROUPS.includes(q.filter) && lbl.group_name !== q.filter)) {
+        return ok(res, 'govtjob', []);
+      }
+      const list = db.posts.filter((x) => !x.isDeleted && !x.isExpired && x.feed === 'govtjob'
+        && (x.labels || []).includes(labelId));
       return ok(res, 'govtjob', list.sort((a, b) => b.postPublishDate.localeCompare(a.postPublishDate)).map((r) => shapePost(r, true)));
     }
 
@@ -234,7 +247,18 @@ function toAdmin(r) {
     id: r.id, postid: r.postid, feed: r.feed, jobTitle: r.jobTitle, jobContent: r.jobContent,
     postPublishDate: r.postPublishDate, formattedDate: r.formattedDate,
     expiredDate: r.expiredDate || '', isExpired: r.isExpired, isDeleted: r.isDeleted, updatedAt: r.updatedAt,
+    labels: r.labels || [],
   };
+}
+
+/** Filter ids selected in the admin editor ("labels": [ids] or "1,2,3"); only govt jobs carry labels. */
+function labelIds(p, feed) {
+  if (feed !== 'govtjob') return [];
+  let raw = p.labels ?? [];
+  if (typeof raw === 'string') raw = raw ? raw.split(',') : [];
+  if (!Array.isArray(raw)) return [];
+  const known = new Set(db.filters.map((f) => f.id));
+  return [...new Set(raw.map(Number))].filter((id) => known.has(id));
 }
 
 async function handleAdmin(url, req, res) {
@@ -309,6 +333,7 @@ async function handleAdmin(url, req, res) {
         feed, jobTitle: title, jobContent: p.jobContent || '',
         postPublishDate: publish, formattedDate: fmtDate,
         expiredDate: p.expiredDate || '', isExpired: p.isExpired ? 1 : 0, isDeleted: 0,
+        labels: labelIds(p, feed),
         updatedAt: new Date().toISOString(),
       });
       save();
@@ -320,7 +345,7 @@ async function handleAdmin(url, req, res) {
       feed, jobTitle: title, jobContent: p.jobContent || '',
       postPublishDate: publish, formattedDate: fmtDate,
       expiredDate: p.expiredDate || '', isExpired: p.isExpired ? 1 : 0,
-      isDeleted: 0, updatedAt: new Date().toISOString(),
+      isDeleted: 0, labels: labelIds(p, feed), updatedAt: new Date().toISOString(),
     };
     db.posts.push(row);
     save();
@@ -334,7 +359,9 @@ async function handleAdmin(url, req, res) {
       return adminOk(res, { filters: list.map((f) => ({ ...f })) });
     }
     if (p.action === 'delete') {
-      db.filters = db.filters.filter((f) => f.id !== Number(p.id));
+      const fid = Number(p.id);
+      db.filters = db.filters.filter((f) => f.id !== fid);
+      db.posts.forEach((x) => { if (x.labels) x.labels = x.labels.filter((id) => id !== fid); });
       save();
       return adminOk(res, { message: 'Filter deleted' });
     }

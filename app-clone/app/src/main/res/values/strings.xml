@@ -34,5 +34,17 @@
     <string name="share_app">Share App</string>
     <string name="find_jobs_here">Find jobs start here</string>
     <string name="privacy_policy">Privacy policy</string>
+    <!-- Replace with your own published privacy-policy page before release. -->
+    <string name="privacy_url" translatable="false">https://example.com/rozgarone/privacy</string>
+    <string name="share_message">Download now and find Sarkari jobs. Get it from the Play Store: </string>
+    <string name="double_tap_exit">Double tap to exit!</string>
     <string name="search_hint">Search Here...</string>
+
+    <!-- "%s List" (filter values) and "%s Job List" (jobs for one value), as in the original. -->
+    <string name="filter_list_title">%s List</string>
+    <string name="filter_jobs_title">%s Job List</string>
+
+    <string name="set_reminder">Set reminder</string>
+    <string name="no_clock_app">No clock app found to set a reminder</string>
+    <string name="notification_channel">Job alerts</string>
 </resources>

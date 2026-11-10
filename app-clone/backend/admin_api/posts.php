@@ -34,10 +34,52 @@ function post_payload(): array
         'formatted_date'  => p_str('formattedDate', p_str('formatted_date')) !== ''
                                 ? p_str('formattedDate', p_str('formatted_date'))
                                 : date('d M Y', strtotime($publish)),
-        'expired_date'    => p_str('expiredDate', p_str('expired_date')) !== null
-                                ? p_str('expiredDate', p_str('expired_date')) : '',
+        'expired_date'    => p_str('expiredDate', p_str('expired_date')),
         'is_expired'      => p_int('isExpired', p_int('is_expired')) ? 1 : 0,
     ];
+}
+
+/** Filter ids the admin selected for this post ("labels": [ids] or "1,2,3"). */
+function label_ids(): array
+{
+    $raw = params()['labels'] ?? [];
+    if (is_string($raw)) {
+        $raw = $raw === '' ? [] : explode(',', $raw);
+    }
+    if (!is_array($raw)) {
+        return [];
+    }
+    return array_values(array_unique(array_filter(array_map('intval', $raw), fn ($v) => $v > 0)));
+}
+
+function save_labels(int $postId, array $ids): void
+{
+    db()->prepare('DELETE FROM post_labels WHERE post_id = ?')->execute([$postId]);
+    if (!$ids) {
+        return;
+    }
+    $ins = db()->prepare(
+        'INSERT IGNORE INTO post_labels (post_id, filter_id) SELECT ?, id FROM filters WHERE id = ?'
+    );
+    foreach ($ids as $fid) {
+        $ins->execute([$postId, $fid]);
+    }
+}
+
+/** @return array<int, int[]> post id → filter ids */
+function labels_for(array $postIds): array
+{
+    if (!$postIds) {
+        return [];
+    }
+    $in   = implode(',', array_fill(0, count($postIds), '?'));
+    $stmt = db()->prepare("SELECT post_id, filter_id FROM post_labels WHERE post_id IN ({$in})");
+    $stmt->execute(array_values($postIds));
+    $out = [];
+    foreach ($stmt->fetchAll() as $r) {
+        $out[(int) $r['post_id']][] = (int) $r['filter_id'];
+    }
+    return $out;
 }
 
 function row_to_admin(array $r): array
@@ -95,7 +137,12 @@ try {
             "SELECT * FROM posts {$sqlWhere} ORDER BY publish_date DESC, id DESC LIMIT {$per} OFFSET {$offset}"
         );
         $stmt->execute($args);
-        $posts = array_map('row_to_admin', $stmt->fetchAll());
+        $posts  = array_map('row_to_admin', $stmt->fetchAll());
+        $labels = labels_for(array_column($posts, 'id'));
+        foreach ($posts as &$p) {
+            $p['labels'] = $labels[$p['id']] ?? [];
+        }
+        unset($p);
 
         $counts = ['govtjob' => 0, 'currentaffairs' => 0, 'resultpost' => 0, 'dailynews' => 0];
         foreach (db()->query('SELECT feed, COUNT(*) c FROM posts WHERE is_deleted = 0 GROUP BY feed') as $r) {
@@ -125,7 +172,9 @@ try {
             $d['postid'], $d['feed'], $d['job_title'], $d['job_content'],
             $d['publish_date'], $d['formatted_date'], $d['expired_date'], $d['is_expired'],
         ]);
-        admin_json(['message' => 'Post created', 'id' => (int) db()->lastInsertId()]);
+        $newId = (int) db()->lastInsertId();
+        save_labels($newId, $d['feed'] === 'govtjob' ? label_ids() : []);
+        admin_json(['message' => 'Post created', 'id' => $newId]);
     }
 
     if (in_array($action, ['update', 'delete', 'restore'], true)) {
@@ -149,6 +198,7 @@ try {
             $d['postid'], $d['feed'], $d['job_title'], $d['job_content'],
             $d['publish_date'], $d['formatted_date'], $d['expired_date'], $d['is_expired'], $id,
         ]);
+        save_labels($id, $d['feed'] === 'govtjob' ? label_ids() : []);
         admin_json(['message' => 'Post updated', 'id' => $id]);
     }
 

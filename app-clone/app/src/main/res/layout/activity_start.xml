@@ -5,6 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/primary">
 
+    <!-- Native ad slot (same id as the original start screen). -->
+    <FrameLayout
+        android:id="@+id/mobadslayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textLL"
+        android:layout_alignParentTop="true"
+        android:layout_margin="15dp" />
+
     <LinearLayout
         android:id="@+id/textLL"
         android:layout_width="wrap_content"

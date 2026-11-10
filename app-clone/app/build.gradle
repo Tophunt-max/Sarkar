@@ -2,6 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
+// Push notifications are optional. Drop your Firebase project's google-services.json
+// into app/ to enable them; without it the app builds and runs with push disabled.
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+}
+
 android {
     namespace 'com.rozgarone'
     compileSdk 34
@@ -13,9 +19,11 @@ android {
         versionCode 1
         versionName "1.0.0"
 
-        // Base URL of the REST backend (see /backend). Override per build with
-        //   ./gradlew assembleDebug -PapiBase=https://your-domain.com/sarkar/api/
-        def apiBase = project.findProperty("apiBase") ?: "http://10.0.2.2:8000/api/"
+        // Backend root (the folder that contains api/). Endpoints are appended as
+        // "api/<name>.php", exactly like the original app's baseurl + endpoint.
+        // Override per build with
+        //   ./gradlew assembleDebug -PapiBase=https://your-domain.com/sarkar/
+        def apiBase = project.findProperty("apiBase") ?: "http://10.0.2.2:8000/"
         buildConfigField "String", "API_BASE", "\"${apiBase}\""
     }
 
@@ -45,8 +53,8 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.android.volley:volley:1.2.1'
-    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'androidx.lifecycle:lifecycle-process:2.8.4'
     implementation 'com.google.android.gms:play-services-ads:23.2.0'
     implementation 'com.google.firebase:firebase-messaging:24.0.1'
     testImplementation 'junit:junit:4.13.2'

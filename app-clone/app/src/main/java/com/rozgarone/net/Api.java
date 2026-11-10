@@ -11,17 +11,20 @@ import com.android.volley.toolbox.Volley;
 /**
  * Thin wrapper around a single Volley request queue plus the backend base URL.
  *
- * <p>Endpoint contract (identical to the original app):
+ * <p>Endpoint contract (identical to the original app). Like the original, every call is
+ * an HTTP POST with form-encoded parameters (REA: {@code c.d.a.g.c.a} is a Volley
+ * {@code StringRequest} built with method 1 = POST whose {@code getParams()} returns the
+ * caller's map).
  * <pre>
- *   GET api/appsettings.php          {status, appsettings:[{admob_banner,...}]}
- *   GET api/getgovtjob.php           {status, govtjob:[{postid,jobTitle,jobContent,...}]}
- *   GET api/getcurrentaffairs.php    {status, currentaffairs:[...]}
- *   GET api/getresultpost.php        {status, resultpost:[...]}
- *   GET api/getdailynews.php         {status, dailynews:[...]}
- *   GET api/getexpiredpost.php       {status, govtjob:[...]}
- *   GET api/getfilter.php?filter=X   {status, filter:[{id,category_name}]}
- *   GET api/getpostbyfilter.php?filter=X&labelid=N  {status, govtjob:[...]}
- *   GET api/getnotification.php      {status, notification:[{maintitle,secondtitle,publishdate}]}
+ *   POST api/appsettings.php                       {status, appsettings:[{admob_banner,...}]}
+ *   POST api/getgovtjob.php                        {status, govtjob:[{postid,jobTitle,...}]}
+ *   POST api/getcurrentaffairs.php                 {status, currentaffairs:[...]}
+ *   POST api/getresultpost.php                     {status, resultpost:[...]}
+ *   POST api/getdailynews.php                      {status, dailynews:[...]}
+ *   POST api/getexpiredpost.php                    {status, govtjob:[...]}
+ *   POST api/getfilter.php       filter=X          {status, filter:[{id,category_name}]}
+ *   POST api/getpostbyfilter.php filter=X&labelid=N {status, govtjob:[...]}
+ *   POST api/getnotification.php                   {status, notification:[{maintitle,...}]}
  * </pre>
  */
 public class Api {
@@ -31,7 +34,10 @@ public class Api {
 
     public Api(@NonNull Context context, @NonNull String baseUrl) {
         this.queue = Volley.newRequestQueue(context.getApplicationContext());
-        this.baseUrl = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+        String b = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+        // Accept a base that already points at api/ so both ".../" and ".../api/" work.
+        if (b.endsWith("/api/")) b = b.substring(0, b.length() - "api/".length());
+        this.baseUrl = b;
     }
 
     public String base() {
@@ -39,7 +45,7 @@ public class Api {
     }
 
     public String url(String endpoint) {
-        return baseUrl + endpoint;
+        return baseUrl + (endpoint.startsWith("/") ? endpoint.substring(1) : endpoint);
     }
 
     public RequestQueue queue() {

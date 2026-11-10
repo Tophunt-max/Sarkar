@@ -79,8 +79,20 @@ $filters = [
     ['Location', 'All India'],
 ];
 $fstmt = $pdo->prepare('INSERT INTO filters (group_name, category_name) VALUES (?, ?)');
+$filterIds = [];
 foreach ($filters as $f) {
     $fstmt->execute($f);
+    $filterIds[$f[1]] = (int) $pdo->lastInsertId();
+}
+
+// Tag every demo govt-job post with a few labels so the "Find Job ... wise" lists have data.
+$demoLabels = ['Graduate', 'All India', 'Engineering', 'Railway', 'Banking & Insurance'];
+$link = $pdo->prepare('INSERT IGNORE INTO post_labels (post_id, filter_id) VALUES (?, ?)');
+$jobIds = $pdo->query("SELECT id FROM posts WHERE feed = 'govtjob' ORDER BY id")->fetchAll(PDO::FETCH_COLUMN);
+foreach ($jobIds as $n => $postId) {
+    $link->execute([(int) $postId, $filterIds['Graduate']]);
+    $link->execute([(int) $postId, $filterIds['All India']]);
+    $link->execute([(int) $postId, $filterIds[$demoLabels[2 + ($n % 3)]]]);
 }
 
 $nstmt = $pdo->prepare('INSERT INTO notifications (main_title, second_title, publish_date) VALUES (?, ?, ?)');

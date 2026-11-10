@@ -90,6 +90,10 @@
                   <textarea id="f_content" placeholder="Write the post body…"></textarea>
                   <div class="hint" id="previewBox" hidden></div>
                 </div>
+                <div class="form-group full" id="labelsGroup">
+                  <label>Filter labels <span class="hint">(shown under "Find Job … wise" in the app; govt jobs only)</span></label>
+                  <div id="f_labels"></div>
+                </div>
                 <div class="form-group full">
                   <label style="display:flex;gap:9px;align-items:center;font-weight:400">
                     <input type="checkbox" id="f_isexpired" style="width:auto" />
@@ -206,6 +210,35 @@
         });
       }
 
+      // ------------------------------------------------------------- labels
+      let allFilters = [];
+      async function loadFilters() {
+        try {
+          const res = await api.filters();
+          allFilters = res.filters || [];
+        } catch (err) {
+          allFilters = [];
+        }
+      }
+
+      function renderLabels(selected) {
+        const sel = new Set((selected || []).map(Number));
+        const groups = ['Category', 'Profession', 'Qualification', 'Location'];
+        $('f_labels').innerHTML = groups.map((g) => {
+          const items = allFilters.filter((f) => f.group_name === g);
+          if (!items.length) return '';
+          return `<div style="margin:6px 0"><b>${escapeHtml(g)}</b><div style="display:flex;flex-wrap:wrap;gap:4px 14px">` +
+            items.map((f) => `<label style="display:flex;gap:6px;align-items:center;font-weight:400">
+              <input type="checkbox" class="lbl" value="${f.id}" style="width:auto" ${sel.has(Number(f.id)) ? 'checked' : ''} />
+              ${escapeHtml(f.category_name)}</label>`).join('') + '</div></div>';
+        }).join('') || '<span class="hint">No filter labels yet — add them under Filter Labels.</span>';
+      }
+
+      function syncLabelsVisibility() {
+        $('labelsGroup').hidden = $('f_feed').value !== 'govtjob';
+      }
+      $('f_feed').addEventListener('change', syncLabelsVisibility);
+
       // ------------------------------------------------------------- editor
       function openEditor(post) {
         state.editing = post;
@@ -217,6 +250,8 @@
         $('f_expired').value = post ? post.expiredDate : '';
         $('f_content').value = post ? post.jobContent : '';
         $('f_isexpired').checked = post ? !!post.isExpired : false;
+        renderLabels(post ? post.labels : []);
+        syncLabelsVisibility();
         $('previewBox').hidden = true;
         $('editor').classList.add('open');
         $('f_title').focus();
@@ -262,6 +297,7 @@
           postPublishDate: $('f_publish').value,
           expiredDate: $('f_expired').value.trim(),
           isExpired: $('f_isexpired').checked ? 1 : 0,
+          labels: [...document.querySelectorAll('#f_labels .lbl:checked')].map((c) => Number(c.value)),
         };
         if (!payload.jobTitle) { toast('Title is required', 'err'); return; }
         const btn = $('saveBtn');
@@ -311,6 +347,7 @@
 
       $('newBtn').onclick = () => openEditor(null);
 
+      await loadFilters();
       load();
       if (qs.get('new') === '1') openEditor(null);
     })();

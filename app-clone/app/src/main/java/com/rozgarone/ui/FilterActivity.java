@@ -47,7 +47,7 @@ public class FilterActivity extends AppCompatActivity implements FilterAdapter.L
         repo = new Repo(this);
 
         TextView title = findViewById(R.id.titlebar);
-        title.setText(group);
+        title.setText(getString(R.string.filter_list_title, group));
 
         findViewById(R.id.backbutton).setOnClickListener(v -> finish());
 
@@ -125,7 +125,7 @@ public class FilterActivity extends AppCompatActivity implements FilterAdapter.L
     public void onPick(FilterItem item) {
         Intent i = new Intent(this, ListActivity.class);
         i.putExtra(ListActivity.EXTRA_FEED, Repo.GOVT_JOB);
-        i.putExtra(ListActivity.EXTRA_TITLE, item.category_name);
+        i.putExtra(ListActivity.EXTRA_TITLE, getString(R.string.filter_jobs_title, item.category_name));
         i.putExtra(ListActivity.EXTRA_GROUP, group);
         i.putExtra(ListActivity.EXTRA_LABEL_ID, item.id);
         startActivity(i);
