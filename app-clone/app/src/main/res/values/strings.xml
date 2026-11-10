@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gov. Job Alerts Portal</string>
+
+    <!-- Replace with your own AdMob app id. The value below is Google's official test id. -->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+
+    <!-- Feed titles -->
+    <string name="title_govtjob">Gov. Jobs</string>
+    <string name="title_currentaffairs">Current Affairs</string>
+    <string name="title_dailynews">Daily News</string>
+    <string name="title_resultpost">Exam Results</string>
+    <string name="title_exam_results">Exam Results</string>
+    <string name="title_expired">Expired Job List</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- Home actions -->
+    <string name="home_find_gov_job">Find All Gov. Jobs</string>
+    <string name="home_current_affairs">Current Affairs</string>
+    <string name="home_daily_news">Daily News Alerts</string>
+    <string name="home_exam_results">Exam Results</string>
+    <string name="home_category">Find Job Category wise</string>
+    <string name="home_profession">Find Job Profession wise</string>
+    <string name="home_qualification">Find Job Qualification wise</string>
+    <string name="home_location">Find Job Location wise</string>
+    <string name="home_search_hint">Search job here...</string>
+
+    <string name="no_data">No data Found</string>
+    <string name="no_internet">No Internet connection</string>
+    <string name="retry">Retry</string>
+    <string name="last_date">Last Date: </string>
+    <string name="view_expired">View Expired</string>
+    <string name="view_active">View Active</string>
+    <string name="share_app">Share App</string>
+    <string name="find_jobs_here">Find jobs start here</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="search_hint">Search Here...</string>
+</resources>

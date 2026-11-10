@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Posts — Gov. Job Alerts Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <script src="assets/js/api.js"></script>
+  <script>
+    (async function () {
+      const { api, toast, confirmDialog, escapeHtml, fmtDate, shell, FEED_LABELS } = window.SarkarAdmin;
+      const page = await shell('posts', 'Posts', 'Create and manage feed content');
+
+      const qs = new URLSearchParams(location.search);
+      const state = {
+        feed: qs.get('feed') || '',
+        scope: 'active',
+        search: '',
+        page: 1,
+        per_page: 12,
+        total: 0,
+        editing: null,
+      };
+
+      page.innerHTML = `
+        <div class="toolbar">
+          <div class="seg" id="feedSeg">
+            <button data-feed="" class="active">All feeds</button>
+            ${Object.keys(FEED_LABELS).map((k) => `<button data-feed="${k}">${FEED_LABELS[k]}</button>`).join('')}
+          </div>
+          <div class="search"><input type="text" id="searchInput" placeholder="Search by title…" /></div>
+          <select id="scopeSel" style="max-width:170px">
+            <option value="active">Active posts</option>
+            <option value="expired">Expired posts</option>
+            <option value="deleted">Trash</option>
+          </select>
+          <button class="btn" id="newBtn">+ New post</button>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3 id="listTitle">Posts</h3><span class="muted" id="listCount"></span></div>
+          <div class="table-wrap" id="tableZone"></div>
+          <div class="pager" id="pager"></div>
+        </div>
+
+        <!-- editor modal -->
+        <div class="modal-backdrop" id="editor">
+          <div class="modal">
+            <div class="modal-head">
+              <h3 id="editorTitle">New post</h3>
+              <button class="modal-x" data-close>&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="f_title">Title</label>
+                  <input type="text" id="f_title" placeholder="e.g. SSC CGL 2024 — 17,727 Posts" maxlength="255" />
+                </div>
+                <div class="form-group">
+                  <label for="f_feed">Feed</label>
+                  <select id="f_feed">
+                    ${Object.keys(FEED_LABELS).map((k) => `<option value="${k}">${FEED_LABELS[k]}</option>`).join('')}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="f_postid">Post ID</label>
+                  <input type="text" id="f_postid" placeholder="auto-generated" />
+                </div>
+                <div class="form-group">
+                  <label for="f_publish">Publish date</label>
+                  <input type="date" id="f_publish" />
+                </div>
+                <div class="form-group">
+                  <label for="f_expired">Expired date</label>
+                  <input type="text" id="f_expired" placeholder="e.g. 28 Jul 2024" />
+                </div>
+                <div class="form-group full">
+                  <label for="f_content">Content (HTML allowed)</label>
+                  <div class="rich-tools">
+                    <button type="button" data-wrap="<b>" data-wrapend="</b>"><b>B</b></button>
+                    <button type="button" data-wrap="<i>" data-wrapend="</i>"><i>I</i></button>
+                    <button type="button" data-wrap="<u>" data-wrapend="</u>"><u>U</u></button>
+                    <button type="button" data-wrap="<h3>" data-wrapend="</h3>">H3</button>
+                    <button type="button" data-wrap="<ul>\n  <li>" data-wrapend="</li>\n</ul>">List</button>
+                    <button type="button" data-wrap="<a href='#'>" data-wrapend="</a>">Link</button>
+                    <button type="button" id="previewBtn">Preview</button>
+                  </div>
+                  <textarea id="f_content" placeholder="Write the post body…"></textarea>
+                  <div class="hint" id="previewBox" hidden></div>
+                </div>
+                <div class="form-group full">
+                  <label style="display:flex;gap:9px;align-items:center;font-weight:400">
+                    <input type="checkbox" id="f_isexpired" style="width:auto" />
+                    Mark as expired
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-foot">
+              <button class="btn ghost" data-close>Cancel</button>
+              <button class="btn" id="saveBtn">Save post</button>
+            </div>
+          </div>
+        </div>`;
+
+      const $ = (id) => document.getElementById(id);
+
+      // ------------------------------------------------------------- list
+      async function load() {
+        const zone = $('tableZone');
+        zone.innerHTML = '<div class="empty">Loading…</div>';
+        try {
+          const res = await api.posts({
+            feed: state.feed,
+            search: state.search,
+            page: state.page,
+            per_page: state.per_page,
+            scope: state.scope,
+          });
+          state.total = res.total;
+          renderTable(res.posts);
+          renderPager();
+          const label = state.feed ? FEED_LABELS[state.feed] : 'All posts';
+          $('listTitle').textContent = label;
+          $('listCount').textContent = `${res.total} post${res.total === 1 ? '' : 's'}`;
+        } catch (err) {
+          zone.innerHTML = '<div class="empty">Could not load posts.</div>';
+          toast(err.message, 'err');
+        }
+      }
+
+      function renderTable(posts) {
+        const zone = $('tableZone');
+        if (!posts.length) {
+          zone.innerHTML = `<div class="empty"><div class="big">&#128196;</div>
+            No posts here. <a href="#" id="emptyNew">Create one</a>.</div>`;
+          const en = $('emptyNew');
+          if (en) en.onclick = (e) => { e.preventDefault(); openEditor(null); };
+          return;
+        }
+        const rows = posts.map((p) => `
+          <tr>
+            <td class="title-cell">
+              <b>${escapeHtml(p.jobTitle)}</b>
+              <small>${escapeHtml(p.postid)} · updated ${escapeHtml(fmtDate(p.updatedAt))}</small>
+            </td>
+            <td><span class="badge ${escapeHtml(p.feed)}">${escapeHtml(FEED_LABELS[p.feed] || p.feed)}</span></td>
+            <td>${escapeHtml(p.formattedDate)}</td>
+            <td>${p.expiredDate ? escapeHtml(p.expiredDate) : '<span class="muted">—</span>'}</td>
+            <td>${p.isDeleted ? '<span class="badge deleted">Trashed</span>'
+                  : p.isExpired ? '<span class="badge expired">Expired</span>'
+                  : '<span class="badge active">Active</span>'}</td>
+            <td style="white-space:nowrap">
+              ${p.isDeleted
+                ? `<button class="btn ghost sm" data-restore="${p.id}">Restore</button>`
+                : `<button class="btn ghost sm" data-edit="${p.id}">Edit</button>
+                   <button class="btn danger sm" data-del="${p.id}">Delete</button>`}
+            </td>
+          </tr>`).join('');
+        zone.innerHTML = `<table>
+          <thead><tr><th>Post</th><th>Feed</th><th>Published</th><th>Expires</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>${rows}</tbody></table>`;
+
+        zone.querySelectorAll('[data-edit]').forEach((b) => {
+          b.onclick = () => {
+            const post = posts.find((x) => String(x.id) === b.dataset.edit);
+            openEditor(post);
+          };
+        });
+        zone.querySelectorAll('[data-del]').forEach((b) => {
+          b.onclick = async () => {
+            const post = posts.find((x) => String(x.id) === b.dataset.del);
+            if (!(await confirmDialog('Delete post?', `"${post.jobTitle}" will be moved to trash.`))) return;
+            try {
+              await api.deletePost(post.id);
+              toast('Post moved to trash', 'ok');
+              load();
+            } catch (err) { toast(err.message, 'err'); }
+          };
+        });
+        zone.querySelectorAll('[data-restore]').forEach((b) => {
+          b.onclick = async () => {
+            try {
+              await api.restorePost(b.dataset.restore);
+              toast('Post restored', 'ok');
+              load();
+            } catch (err) { toast(err.message, 'err'); }
+          };
+        });
+      }
+
+      function renderPager() {
+        const pages = Math.max(1, Math.ceil(state.total / state.per_page));
+        const cur = state.page;
+        const from = state.total ? (cur - 1) * state.per_page + 1 : 0;
+        const to = Math.min(cur * state.per_page, state.total);
+        $('pager').innerHTML = `
+          <span class="muted" style="margin-right:auto">Showing ${from}–${to} of ${state.total}</span>
+          <button class="btn ghost sm" data-pg="${cur - 1}" ${cur <= 1 ? 'disabled' : ''}>&lsaquo;</button>
+          <span class="btn ghost sm" style="pointer-events:none">${cur} / ${pages}</span>
+          <button class="btn ghost sm" data-pg="${cur + 1}" ${cur >= pages ? 'disabled' : ''}>&rsaquo;</button>`;
+        $('pager').querySelectorAll('[data-pg]').forEach((b) => {
+          b.onclick = () => { state.page = Number(b.dataset.pg); load(); };
+        });
+      }
+
+      // ------------------------------------------------------------- editor
+      function openEditor(post) {
+        state.editing = post;
+        $('editorTitle').textContent = post ? 'Edit post' : 'New post';
+        $('f_title').value = post ? post.jobTitle : '';
+        $('f_feed').value = post ? post.feed : (state.feed || 'govtjob');
+        $('f_postid').value = post ? post.postid : '';
+        $('f_publish').value = post ? post.postPublishDate : new Date().toISOString().slice(0, 10);
+        $('f_expired').value = post ? post.expiredDate : '';
+        $('f_content').value = post ? post.jobContent : '';
+        $('f_isexpired').checked = post ? !!post.isExpired : false;
+        $('previewBox').hidden = true;
+        $('editor').classList.add('open');
+        $('f_title').focus();
+      }
+
+      function closeEditor() {
+        $('editor').classList.remove('open');
+        state.editing = null;
+      }
+
+      $('editor').addEventListener('click', (e) => {
+        if (e.target.id === 'editor') closeEditor();
+      });
+      document.querySelectorAll('[data-close]').forEach((b) => { b.onclick = closeEditor; });
+
+      document.querySelectorAll('.rich-tools [data-wrap]').forEach((b) => {
+        b.onclick = () => {
+          const ta = $('f_content');
+          const start = ta.selectionStart;
+          const end = ta.selectionEnd;
+          const sel = ta.value.slice(start, end);
+          ta.value = ta.value.slice(0, start) + b.dataset.wrap + sel + b.dataset.wrapend + ta.value.slice(end);
+          ta.focus();
+          ta.selectionStart = start + b.dataset.wrap.length;
+          ta.selectionEnd = ta.selectionStart + sel.length;
+        };
+      });
+
+      $('previewBtn').onclick = () => {
+        const box = $('previewBox');
+        box.hidden = !box.hidden;
+        if (!box.hidden) box.innerHTML = $('f_content').value;
+      };
+
+      $('saveBtn').onclick = async () => {
+        const payload = {
+          action: state.editing ? 'update' : 'create',
+          id: state.editing ? state.editing.id : undefined,
+          jobTitle: $('f_title').value.trim(),
+          feed: $('f_feed').value,
+          postid: $('f_postid').value.trim(),
+          jobContent: $('f_content').value,
+          postPublishDate: $('f_publish').value,
+          expiredDate: $('f_expired').value.trim(),
+          isExpired: $('f_isexpired').checked ? 1 : 0,
+        };
+        if (!payload.jobTitle) { toast('Title is required', 'err'); return; }
+        const btn = $('saveBtn');
+        btn.disabled = true;
+        try {
+          await api.savePost(payload);
+          toast(state.editing ? 'Post updated' : 'Post created', 'ok');
+          closeEditor();
+          load();
+        } catch (err) {
+          toast(err.message, 'err');
+        } finally {
+          btn.disabled = false;
+        }
+      };
+
+      // ------------------------------------------------------------- controls
+      $('feedSeg').querySelectorAll('button').forEach((b) => {
+        if (b.dataset.feed === state.feed) {
+          $('feedSeg').querySelectorAll('button').forEach((x) => x.classList.remove('active'));
+          b.classList.add('active');
+        }
+        b.onclick = () => {
+          $('feedSeg').querySelectorAll('button').forEach((x) => x.classList.remove('active'));
+          b.classList.add('active');
+          state.feed = b.dataset.feed;
+          state.page = 1;
+          load();
+        };
+      });
+
+      let searchTimer;
+      $('searchInput').oninput = (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          state.search = e.target.value.trim();
+          state.page = 1;
+          load();
+        }, 320);
+      };
+
+      $('scopeSel').onchange = (e) => {
+        state.scope = e.target.value;
+        state.page = 1;
+        load();
+      };
+
+      $('newBtn').onclick = () => openEditor(null);
+
+      load();
+      if (qs.get('new') === '1') openEditor(null);
+    })();
+  </script>
+</body>
+</html>

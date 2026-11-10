@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — Gov. Job Alerts Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <script src="assets/js/api.js"></script>
+  <script>
+    (async function () {
+      const { api, toast, escapeHtml, fmtDate, shell, FEED_LABELS } = window.SarkarAdmin;
+      const page = await shell('dashboard', 'Dashboard', 'Overview of your job feed content');
+
+      page.innerHTML = `
+        <div class="stat-grid" id="stats"></div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">
+              <h3>Recent posts</h3>
+              <a class="btn ghost sm" href="posts.html">Manage all</a>
+            </div>
+            <div class="table-wrap" id="recent"></div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-head"><h3>Quick actions</h3></div>
+              <div class="card-body">
+                <a class="btn link-block" href="posts.html?new=1">+ Add new job post</a>
+                <a class="btn ghost link-block mt-12" href="notifications.html">Send a notification</a>
+                <a class="btn ghost link-block mt-12" href="filters.html">Edit filter labels</a>
+                <a class="btn ghost link-block mt-12" href="settings.html">AdMob settings</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3>API endpoints</h3></div>
+              <div class="card-body">
+                <div class="kv"><span>Base URL</span><b id="baseUrl">/api/</b></div>
+                <div class="kv"><span>Filters</span><b id="fCount">—</b></div>
+                <div class="kv"><span>Notifications</span><b id="nCount">—</b></div>
+                <div class="kv"><span>Server</span><b id="srv">—</b></div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      try {
+        const [list, filters, notes, settings] = await Promise.all([
+          api.posts({ per_page: 8 }),
+          api.filters(),
+          api.notifications(),
+          api.settings(),
+        ]);
+
+        const feeds = list.feeds || {};
+        const total = Object.values(feeds).reduce((a, b) => a + b, 0);
+        const cards = [
+          { num: total, lbl: 'Total active posts', href: 'posts.html' },
+          ...Object.keys(FEED_LABELS).map((k) => ({
+            num: feeds[k] || 0,
+            lbl: FEED_LABELS[k],
+            href: 'posts.html?feed=' + k,
+          })),
+        ];
+        document.getElementById('stats').innerHTML = cards.map((c) => `
+          <div class="stat-card">
+            <div class="num">${c.num}</div>
+            <div class="lbl">${escapeHtml(c.lbl)}</div>
+            <a href="${c.href}">Open &rarr;</a>
+          </div>`).join('');
+
+        const rows = list.posts.map((p) => `
+          <tr>
+            <td class="title-cell">
+              <b>${escapeHtml(p.jobTitle)}</b>
+              <small>${escapeHtml(p.formattedDate)} · ${escapeHtml(p.postid)}</small>
+            </td>
+            <td><span class="badge ${escapeHtml(p.feed)}">${escapeHtml(FEED_LABELS[p.feed] || p.feed)}</span></td>
+            <td>${p.isExpired ? '<span class="badge expired">Expired</span>' : '<span class="badge active">Active</span>'}</td>
+          </tr>`).join('');
+
+        document.getElementById('recent').innerHTML = rows
+          ? `<table><thead><tr><th>Post</th><th>Feed</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>`
+          : '<div class="empty"><div class="big">&#128196;</div>No posts yet. Create your first one.</div>';
+
+        document.getElementById('fCount').textContent = filters.filters.length;
+        document.getElementById('nCount').textContent = notes.notifications.length;
+        document.getElementById('srv').textContent = settings.settings.admob_banner ? 'Connected' : 'No AdMob';
+      } catch (err) {
+        toast(err.message || 'Failed to load dashboard', 'err');
+      }
+    })();
+  </script>
+</body>
+</html>

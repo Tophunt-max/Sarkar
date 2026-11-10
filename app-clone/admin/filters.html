@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filter Labels — Gov. Job Alerts Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <script src="assets/js/api.js"></script>
+  <script>
+    (async function () {
+      const { api, toast, confirmDialog, escapeHtml, shell } = window.SarkarAdmin;
+      const page = await shell('filters', 'Filter Labels', 'Category, Profession, Qualification and Location groups');
+
+      const GROUPS = ['Category', 'Profession', 'Qualification', 'Location'];
+      let active = 'Category';
+
+      page.innerHTML = `
+        <div class="toolbar">
+          <div class="seg" id="groupSeg">
+            ${GROUPS.map((g) => `<button data-group="${g}">${g}</button>`).join('')}
+          </div>
+          <div style="flex:1"></div>
+          <button class="btn" id="addBtn">+ Add label</button>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3 id="groupTitle">Category labels</h3><span class="muted" id="groupCount"></span></div>
+          <div class="table-wrap" id="zone"></div>
+        </div>
+
+        <div class="modal-backdrop" id="modal">
+          <div class="modal sm">
+            <div class="modal-head">
+              <h3 id="modalTitle">Add label</h3>
+              <button class="modal-x" data-close>&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="g_input">Group</label>
+                <select id="g_input">${GROUPS.map((g) => `<option>${g}</option>`).join('')}</select>
+              </div>
+              <div class="form-group mt-12">
+                <label for="n_input">Label name</label>
+                <input type="text" id="n_input" placeholder="e.g. Banking &amp; Insurance" maxlength="120" />
+              </div>
+            </div>
+            <div class="modal-foot">
+              <button class="btn ghost" data-close>Cancel</button>
+              <button class="btn" id="saveBtn">Save</button>
+            </div>
+          </div>
+        </div>`;
+
+      const $ = (id) => document.getElementById(id);
+      let editing = null;
+
+      async function load() {
+        const zone = $('zone');
+        zone.innerHTML = '<div class="empty">Loading…</div>';
+        try {
+          const res = await api.filters(active);
+          $('groupTitle').textContent = active + ' labels';
+          $('groupCount').textContent = res.filters.length + ' total';
+          if (!res.filters.length) {
+            zone.innerHTML = `<div class="empty"><div class="big">&#127991;</div>No labels in ${active} yet.</div>`;
+            return;
+          }
+          zone.innerHTML = `<table>
+            <thead><tr><th style="width:90px">ID</th><th>Label</th><th>Group</th><th style="width:180px">Actions</th></tr></thead>
+            <tbody>${res.filters.map((f) => `
+              <tr>
+                <td class="tbl-id">#${f.id}</td>
+                <td><b style="font-weight:500">${escapeHtml(f.category_name)}</b></td>
+                <td><span class="badge currentaffairs">${escapeHtml(f.group_name)}</span></td>
+                <td style="white-space:nowrap">
+                  <button class="btn ghost sm" data-edit="${f.id}">Edit</button>
+                  <button class="btn danger sm" data-del="${f.id}">Delete</button>
+                </td>
+              </tr>`).join('')}</tbody></table>`;
+
+          zone.querySelectorAll('[data-edit]').forEach((b) => {
+            b.onclick = () => {
+              const f = res.filters.find((x) => String(x.id) === b.dataset.edit);
+              openModal(f);
+            };
+          });
+          zone.querySelectorAll('[data-del]').forEach((b) => {
+            b.onclick = async () => {
+              const f = res.filters.find((x) => String(x.id) === b.dataset.del);
+              if (!(await confirmDialog('Delete label?', `"${f.category_name}" will be removed.`))) return;
+              try { await api.deleteFilter(f.id); toast('Label deleted', 'ok'); load(); }
+              catch (err) { toast(err.message, 'err'); }
+            };
+          });
+        } catch (err) {
+          zone.innerHTML = '<div class="empty">Could not load labels.</div>';
+          toast(err.message, 'err');
+        }
+      }
+
+      function openModal(item) {
+        editing = item || null;
+        $('modalTitle').textContent = item ? 'Edit label' : 'Add label';
+        $('g_input').value = item ? item.group_name : active;
+        $('n_input').value = item ? item.category_name : '';
+        $('modal').classList.add('open');
+        $('n_input').focus();
+      }
+      function closeModal() { $('modal').classList.remove('open'); editing = null; }
+
+      document.querySelectorAll('[data-close]').forEach((b) => { b.onclick = closeModal; });
+      $('modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+
+      $('addBtn').onclick = () => openModal(null);
+
+      $('saveBtn').onclick = async () => {
+        const name = $('n_input').value.trim();
+        if (!name) { toast('Label name is required', 'err'); return; }
+        try {
+          await api.saveFilter({
+            action: editing ? 'update' : 'create',
+            id: editing ? editing.id : undefined,
+            group_name: $('g_input').value,
+            category_name: name,
+          });
+          toast(editing ? 'Label updated' : 'Label created', 'ok');
+          closeModal();
+          load();
+        } catch (err) { toast(err.message, 'err'); }
+      };
+
+      $('groupSeg').querySelectorAll('button').forEach((b) => {
+        b.onclick = () => {
+          $('groupSeg').querySelectorAll('button').forEach((x) => x.classList.remove('active'));
+          b.classList.add('active');
+          active = b.dataset.group;
+          load();
+        };
+        if (b.dataset.group === active) b.classList.add('active');
+      });
+
+      load();
+    })();
+  </script>
+</body>
+</html>

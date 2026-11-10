@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — Gov. Job Alerts Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <form class="auth-card" id="loginForm" autocomplete="on">
+      <div class="auth-logo">GJ</div>
+      <h1>Gov. Job Alerts Portal</h1>
+      <p class="sub">Admin sign in to manage job posts</p>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="admin" required autofocus />
+      </div>
+      <div class="form-group mt-12">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required />
+      </div>
+
+      <button class="btn" type="submit" id="submitBtn" style="width:100%;justify-content:center;margin-top:20px">
+        Sign in
+      </button>
+      <p class="hint" style="text-align:center;margin-top:14px">
+        Demo login — <b>admin</b> / <b>admin123</b>
+      </p>
+    </form>
+  </div>
+
+  <script src="assets/js/api.js"></script>
+  <script>
+    (async function () {
+      const { api, toast } = window.SarkarAdmin;
+
+      // Already authenticated? Skip straight to the dashboard.
+      try {
+        await api.me();
+        location.replace('dashboard.html');
+        return;
+      } catch (e) { /* stay on login */ }
+
+      const form = document.getElementById('loginForm');
+      const btn = document.getElementById('submitBtn');
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        btn.disabled = true;
+        btn.textContent = 'Signing in…';
+        try {
+          await api.login(username, password);
+          location.href = 'dashboard.html';
+        } catch (err) {
+          toast(err.message || 'Login failed', 'err');
+          btn.disabled = false;
+          btn.textContent = 'Sign in';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

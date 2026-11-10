@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings — Gov. Job Alerts Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <script src="assets/js/api.js"></script>
+  <script>
+    (async function () {
+      const { api, toast, shell } = window.SarkarAdmin;
+      const page = await shell('settings', 'Settings', 'AdMob unit ids and account security');
+
+      const FIELDS = [
+        ['admob_banner', 'Banner ad unit ID', 'ca-app-pub-…/…'],
+        ['admob_interstitial', 'Interstitial ad unit ID', 'ca-app-pub-…/…'],
+        ['admob_native', 'Native ad unit ID', 'ca-app-pub-…/…'],
+        ['admob_appopen', 'App-open ad unit ID', 'ca-app-pub-…/…'],
+      ];
+
+      page.innerHTML = `
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h3>AdMob configuration</h3></div>
+            <div class="card-body">
+              <div class="form-grid">
+                ${FIELDS.map(([k, label, ph]) => `
+                  <div class="form-group full">
+                    <label for="${k}">${label}</label>
+                    <input type="text" id="${k}" placeholder="${ph}" />
+                  </div>`).join('')}
+              </div>
+              <div class="form-actions">
+                <button class="btn" id="saveAds">Save settings</button>
+              </div>
+              <p class="hint">These ids are served to the app by <code>api/appsettings.php</code> at launch.</p>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <div class="card-head"><h3>Change password</h3></div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="cur">Current password</label>
+                  <input type="password" id="cur" placeholder="••••••••" />
+                </div>
+                <div class="form-group mt-12">
+                  <label for="new1">New password</label>
+                  <input type="password" id="new1" placeholder="At least 6 characters" />
+                </div>
+                <div class="form-group mt-12">
+                  <label for="new2">Confirm new password</label>
+                  <input type="password" id="new2" placeholder="Repeat new password" />
+                </div>
+                <div class="form-actions">
+                  <button class="btn" id="savePw">Update password</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h3>App connection</h3></div>
+              <div class="card-body">
+                <div class="kv"><span>API base</span><b>/api/</b></div>
+                <div class="kv"><span>Endpoints</span><b>9</b></div>
+                <div class="kv"><span>Contract</span><b>status / message / payload</b></div>
+                <p class="hint">Set <code>BASE_URL</code> in the Android app's <code>core/Constants.kt</code> to this host.</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      const $ = (id) => document.getElementById(id);
+
+      try {
+        const res = await api.settings();
+        FIELDS.forEach(([k]) => { $(k).value = res.settings[k] || ''; });
+      } catch (err) { toast(err.message, 'err'); }
+
+      $('saveAds').onclick = async () => {
+        const payload = {};
+        FIELDS.forEach(([k]) => { payload[k] = $(k).value.trim(); });
+        try {
+          await api.saveSettings(payload);
+          toast('Settings saved', 'ok');
+        } catch (err) { toast(err.message, 'err'); }
+      };
+
+      $('savePw').onclick = async () => {
+        const cur = $('cur').value;
+        const n1 = $('new1').value;
+        const n2 = $('new2').value;
+        if (!cur || !n1) { toast('Fill in all password fields', 'err'); return; }
+        if (n1 !== n2) { toast('New passwords do not match', 'err'); return; }
+        if (n1.length < 6) { toast('Password must be at least 6 characters', 'err'); return; }
+        try {
+          await api.changePassword({ current_password: cur, new_password: n1 });
+          toast('Password updated', 'ok');
+          $('cur').value = $('new1').value = $('new2').value = '';
+        } catch (err) { toast(err.message, 'err'); }
+      };
+    })();
+  </script>
+</body>
+</html>

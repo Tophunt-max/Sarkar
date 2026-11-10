@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand palette extracted from the original APK -->
+    <color name="primary">#FF00175F</color>
+    <color name="lightprimary">#FF263A77</color>
+    <color name="back">#FFF8F8F8</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="txtlight">#FFACB6C0</color>
+    <color name="placeholder_bg">#FFDDDDDD</color>
+
+    <color name="one">#FFF6A533</color>
+    <color name="two">#FFE79D35</color>
+    <color name="three">#FFD59135</color>
+    <color name="four">#FFBD8434</color>
+    <color name="five">#FF33457F</color>
+    <color name="six">#FF354D9B</color>
+    <color name="seven">#FF3554B7</color>
+    <color name="eight">#FF3459D3</color>
+</resources>

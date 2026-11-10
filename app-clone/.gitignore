@@ -1,0 +1,27 @@
+# .gitignore — Android (Gradle) + Node backend
+
+# Android / Gradle
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.keystore
+!debug.keystore
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+backend/data/db.json
+
+# OS / editor
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
