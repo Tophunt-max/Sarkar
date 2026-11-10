@@ -1,4 +1,4 @@
-package com.rozgarone.app.ui;
+package com.rozgarone.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.rozgarone.app.R;
-import com.rozgarone.app.net.Repo;
+import com.rozgarone.R;
+import com.rozgarone.net.Repo;
 
 /** Home dashboard: four feed tiles, four filter entries and the notification bell. */
 public class MainActivity extends AppCompatActivity {

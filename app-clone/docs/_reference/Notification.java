@@ -1,4 +1,4 @@
-package com.rozgarone.app;
+package com.rozgarone;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import c.a.a.t;
 import c.d.a.d.e;
 import c.d.a.g.d;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.rozgarone.app.SarkariHelper.ConstClass;
+import com.rozgarone.SarkariHelper.ConstClass;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.JSONArray;

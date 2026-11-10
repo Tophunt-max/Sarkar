@@ -1,4 +1,4 @@
-package com.rozgarone.app.net;
+package com.rozgarone.net;
 
 import android.content.Context;
 

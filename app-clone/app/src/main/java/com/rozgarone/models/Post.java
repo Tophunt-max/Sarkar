@@ -1,4 +1,4 @@
-package com.rozgarone.app.models;
+package com.rozgarone.models;
 
 import androidx.annotation.NonNull;
 

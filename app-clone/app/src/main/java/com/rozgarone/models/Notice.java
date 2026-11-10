@@ -1,4 +1,4 @@
-package com.rozgarone.app.models;
+package com.rozgarone.models;
 
 /** A push-style announcement shown on the Notifications screen. */
 public class Notice {

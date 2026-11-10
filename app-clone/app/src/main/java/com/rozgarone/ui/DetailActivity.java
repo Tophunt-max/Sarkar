@@ -1,4 +1,4 @@
-package com.rozgarone.app.ui;
+package com.rozgarone.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.rozgarone.app.R;
-import com.rozgarone.app.util.Util;
+import com.rozgarone.R;
+import com.rozgarone.util.Util;
 
 /** Full post detail: title, publish/expiry dates and rendered HTML body. */
 public class DetailActivity extends AppCompatActivity {

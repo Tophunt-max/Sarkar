@@ -1,4 +1,4 @@
-package com.rozgarone.app.AppInit;
+package com.rozgarone.AppInit;
 
 import android.content.Intent;
 import android.util.Log;
@@ -6,11 +6,11 @@ import c.c.d.a0.t0;
 import c.d.a.c.a;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
-import com.rozgarone.app.AllGovjob;
-import com.rozgarone.app.Currentaffairs;
-import com.rozgarone.app.Dailynews;
-import com.rozgarone.app.Examresults;
-import com.rozgarone.app.MainActivity;
+import com.rozgarone.AllGovjob;
+import com.rozgarone.Currentaffairs;
+import com.rozgarone.Dailynews;
+import com.rozgarone.Examresults;
+import com.rozgarone.MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package com.rozgarone.app.ui.adapter;
+package com.rozgarone.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rozgarone.app.R;
-import com.rozgarone.app.models.FilterItem;
+import com.rozgarone.R;
+import com.rozgarone.models.FilterItem;
 
 import java.util.ArrayList;
 import java.util.List;

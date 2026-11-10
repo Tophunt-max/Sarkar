@@ -1,4 +1,4 @@
-package com.rozgarone.app.SarkariHelper;
+package com.rozgarone.SarkariHelper;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

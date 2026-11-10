@@ -1,4 +1,4 @@
-package com.rozgarone.app.ui;
+package com.rozgarone.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,8 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.rozgarone.app.App;
-import com.rozgarone.app.R;
+import com.rozgarone.App;
+import com.rozgarone.R;
 
 /** First-run intro: "Find jobs start here", share app, privacy policy. */
 public class StartActivity extends AppCompatActivity {

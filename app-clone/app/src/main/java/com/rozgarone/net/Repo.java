@@ -1,4 +1,4 @@
-package com.rozgarone.app.net;
+package com.rozgarone.net;
 
 import android.content.Context;
 
@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.rozgarone.app.App;
-import com.rozgarone.app.models.FilterItem;
-import com.rozgarone.app.models.Notice;
-import com.rozgarone.app.models.Post;
+import com.rozgarone.App;
+import com.rozgarone.models.FilterItem;
+import com.rozgarone.models.Notice;
+import com.rozgarone.models.Post;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

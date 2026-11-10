@@ -1,4 +1,4 @@
-package com.rozgarone.app.models;
+package com.rozgarone.models;
 
 /** One selectable value of a filter group (Category / Profession / Qualification / Location). */
 public class FilterItem {

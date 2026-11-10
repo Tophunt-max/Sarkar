@@ -1,4 +1,4 @@
-package com.rozgarone.app;
+package com.rozgarone;
 
 import android.content.Intent;
 import android.os.Bundle;

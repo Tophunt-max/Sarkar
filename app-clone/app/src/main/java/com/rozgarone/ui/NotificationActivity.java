@@ -1,4 +1,4 @@
-package com.rozgarone.app.ui;
+package com.rozgarone.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.rozgarone.app.R;
-import com.rozgarone.app.models.Notice;
-import com.rozgarone.app.net.Repo;
-import com.rozgarone.app.util.Util;
+import com.rozgarone.R;
+import com.rozgarone.models.Notice;
+import com.rozgarone.net.Repo;
+import com.rozgarone.util.Util;
 
 import java.util.List;
 

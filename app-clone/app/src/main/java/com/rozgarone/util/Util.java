@@ -1,4 +1,4 @@
-package com.rozgarone.app.util;
+package com.rozgarone.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

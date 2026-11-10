@@ -1,4 +1,4 @@
-package com.rozgarone.app.AppInit;
+package com.rozgarone.AppInit;
 
 import b.p.f;
 import b.p.g;

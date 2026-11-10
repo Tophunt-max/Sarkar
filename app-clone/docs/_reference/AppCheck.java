@@ -1,4 +1,4 @@
-package com.rozgarone.app.AppInit;
+package com.rozgarone.AppInit;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,10 +1,10 @@
-package com.rozgarone.app;
+package com.rozgarone;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.rozgarone.app.net.Api;
-import com.rozgarone.app.net.AppSettings;
+import com.rozgarone.net.Api;
+import com.rozgarone.net.AppSettings;
 
 /**
  * Application entry point. Owns the process-wide {@link Api} client and the

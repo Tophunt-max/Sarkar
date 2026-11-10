@@ -1,5 +1,8 @@
 # RozgarOne — Government Job Alerts App + Admin Panel + Backend
 
+> Fork of the *Sarkar* repo: the original APK lives at the repo root, and the
+> full working re-implementation lives in [`app-clone/`](./app-clone).
+
 **RozgarOne** is a working, editable government-job-alerts app, re-implemented from the
 **Sarkari Exam Updates** Android app (originally `com.gsbussiness.sarkariexamupdates`,
 distributed as `sarkariexamadmin1-8-22.apk`),

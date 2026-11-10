@@ -1,4 +1,4 @@
-package com.rozgarone.app;
+package com.rozgarone;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import c.a.a.t;
 import c.d.a.d.f;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.rozgarone.app.SarkariHelper.ConstClass;
+import com.rozgarone.SarkariHelper.ConstClass;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

@@ -1,18 +1,19 @@
-# Sarkar — APK + Full Clone
+# Sarkar — APK + RozgarOne Clone
 
-This repo holds the original APK and a complete, editable re-implementation of it.
+This repo holds the original APK and **RozgarOne**, a complete, editable
+re-implementation of it.
 
 | Path | What it is |
 |------|------------|
 | `sarkariexamadmin1-8-22.apk` | The original APK (reference only) |
-| [`app-clone/`](./app-clone) | Full clone: Android app + admin panel + backend, as editable source |
+| [`app-clone/`](./app-clone) | **RozgarOne** — Android app + admin panel + backend, as source |
 
-## The clone (`app-clone/`)
+## RozgarOne (`app-clone/`)
 
 | Folder | What it is |
 |--------|------------|
-| `app-clone/app` | Android app — **Java**, Gradle project. Open in Android Studio / VS Code. |
-| `app-clone/admin` | Admin panel — sign in, manage posts, filters, notifications, settings. |
+| `app-clone/app` | Android app — **Java**, Gradle. Package `com.rozgarone`. Open in Android Studio / VS Code. |
+| `app-clone/admin` | Admin panel — posts, filters, notifications, AdMob settings. |
 | `app-clone/backend` | REST API — same endpoints as the original app (PHP+MySQL or Node.js). |
 | `app-clone/docs` | Analysis of the original APK + decompiled reference sources. |
 
@@ -31,8 +32,8 @@ echo "sdk.dir=/path/to/Android/Sdk" > local.properties
 #   APK -> app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Screens reproduced: Splash, Intro, Home (4 feeds + 4 filters), List (expired
-archive + pull-to-refresh), Detail (HTML body + share), Filter values (search),
+Screens: Splash, Intro, Home (4 feeds + 4 filters), List (expired archive +
+pull-to-refresh), Detail (HTML body + share), Filter values (search),
 Notifications — with the original colours and icons taken from the APK.
 
 See [`app-clone/README.md`](./app-clone/README.md) for the full API contract,

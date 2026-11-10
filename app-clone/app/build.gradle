@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.rozgarone.app'
+    namespace 'com.rozgarone'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.rozgarone.app"
+        applicationId "com.rozgarone"
         minSdk 24
         targetSdk 34
         versionCode 1

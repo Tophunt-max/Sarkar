@@ -1,4 +1,4 @@
-package com.rozgarone.app;
+package com.rozgarone;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,7 @@ import c.c.b.b.a.o;
 import c.c.b.b.a.r;
 import c.d.a.d.d;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.rozgarone.app.SarkariHelper.ConstClass;
+import com.rozgarone.SarkariHelper.ConstClass;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -64,7 +64,7 @@ public class AllGovjob extends b.b.b.c implements d.e {
             interstitialAd.b(new C0144a(this));
         }
 
-        /* renamed from: com.rozgarone.app.AllGovjob$a$a, reason: collision with other inner class name */
+        /* renamed from: com.rozgarone.AllGovjob$a$a, reason: collision with other inner class name */
         public class C0144a extends l {
             public C0144a(a this$1) {
             }
